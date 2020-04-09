@@ -5,7 +5,7 @@
   "author": "egg system",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "nuxt front",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
@@ -25,7 +25,9 @@
     "@nuxtjs/axios": "^5.9.7",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/pwa": "^3.0.0-0",
-    "nuxt": "^2.12.2"
+    "nuxt": "^2.12.2",
+    "vuex-persistedstate": "^3.0.1",
+    "xxhash-wasm": "^0.4.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.2",
