@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-stepper-step :step="step">
+    <v-stepper-step :step="step" :editable="editable">
       変換後CSVの項目作成
     </v-stepper-step>
     <v-stepper-content :step="step">
@@ -15,6 +15,11 @@ import convertTable from './convert-table/convert-table.vue'
 
 export default {
   components: { convertTable },
-  mixins: [stepsMixins]
+  mixins: [stepsMixins],
+  computed: {
+    editable() {
+      return 'csv' in this.$route.query
+    }
+  }
 }
 </script>

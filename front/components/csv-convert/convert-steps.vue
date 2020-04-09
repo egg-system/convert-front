@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import selectCsv from './steps/select-csv.vue'
 import mapCsv from './steps/map-csv.vue'
 
@@ -16,10 +16,18 @@ export default {
     file: null
   }),
   computed: {
-    step() {
-      return this.currentStep
+    step: {
+      get() {
+        return this.currentStep
+      },
+      set(step) {
+        this.pushStep(step)
+      }
     },
     ...mapState('csv', ['currentStep'])
+  },
+  methods: {
+    ...mapActions('csv', ['pushStep'])
   }
 }
 </script>

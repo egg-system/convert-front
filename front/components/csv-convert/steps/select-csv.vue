@@ -1,37 +1,39 @@
 <template>
   <v-container>
-    <v-stepper-step :step="step" :complete="compuleted">
+    <v-stepper-step :step="step" editable>
       変換元CSVの選択
     </v-stepper-step>
     <v-stepper-content :step="step">
       <v-file-input v-model="csv" accept=".csv" single-line show-size />
+      <v-btn color="primary" :disabled="!selected" @click="putCsvFile">
+        アップロードする
+      </v-btn>
     </v-stepper-content>
   </v-container>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import stepsMixins from './steps-mixins'
 
 export default {
   mixins: [stepsMixins],
+  data: () => ({
+    csv: null
+  }),
   computed: {
-    compuleted() {
-      return this.file !== null
+    selected() {
+      return this.csv !== null
     },
-    csv: {
-      get() {
-        return this.file
-      },
-      set(csv) {
-        this.setFile(csv)
-        this.$router.push({ query: { step: this.nextStep } })
-      }
-    },
-    ...mapState('csv', ['file'])
+    ...mapState('csv', ['fileKey'])
   },
   methods: {
-    ...mapMutations('csv', ['setFile'])
+    async putCsvFile() {
+      await this.putFile(this.csv)
+      this.pushStep(this.nextStep)
+    },
+    ...mapActions('csv', ['pushStep']),
+    ...mapActions('csv/file', ['putFile'])
   }
 }
 </script>
