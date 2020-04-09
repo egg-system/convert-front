@@ -1,5 +1,8 @@
 import colors from 'vuetify/es5/util/colors'
 
+// package.jsonが１つ上の階層のため、パスの指定が必要
+require('dotenv').config({ path: './front/.env' })
+
 export default {
   mode: 'spa',
   /*
@@ -30,7 +33,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [{ src: '~/plugins/storage.js', ssr: false }],
   /*
    ** Nuxt.js dev-modules
    */
@@ -39,7 +42,9 @@ export default {
     '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    // Doc: https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv'
   ],
   /*
    ** Nuxt.js modules
@@ -47,19 +52,19 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/pwa'
   ],
+  server: {
+    host: process.env.BASE_HOST || 'localhost',
+    port: process.env.BASE_PORT || 3000
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
-  /*
-   ** バックエンド、フロントエンドのコードの可読性を上げるための対応
-   */
-  rootDir: './front',
+  axios: {
+    baseURL: process.env.API_URL
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
