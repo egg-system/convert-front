@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-stepper-step :step="step" :complete="compuleted" ref="file">
+    <v-stepper-step :step="step" :complete="compuleted">
       変換元CSVの選択
     </v-stepper-step>
     <v-stepper-content :step="step">

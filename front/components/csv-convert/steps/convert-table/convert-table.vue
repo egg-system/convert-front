@@ -18,7 +18,7 @@
     <template v-slot:no-data>
       <v-container>
         <p>変換設定がありません。追加してください。</p>
-        <v-btn @click="addSetting" color="primary">追加する</v-btn>
+        <v-btn color="primary" @click="addSetting">追加する</v-btn>
       </v-container>
     </template>
   </v-data-table>
