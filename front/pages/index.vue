@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import ConvertSteps from '@/components/csv-convert/convert-steps.vue'
+import convertSteps from '@/components/csv-convert/convert-steps.vue'
 
 export default {
   layout: 'input',
-  components: { ConvertSteps },
+  components: { convertSteps },
   fetch({ query, redirect, store }) {
     if (!('step' in query)) {
       redirect(302, '/', { step: 1 })
