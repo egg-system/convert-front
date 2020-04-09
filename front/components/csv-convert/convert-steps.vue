@@ -1,31 +1,25 @@
 <template>
   <v-stepper v-model="step" vertival>
     <select-csv step="1" />
+    <map-csv step="2" />
   </v-stepper>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
-import SelectCsv from './steps/select-csv.vue'
+import { mapState } from 'vuex'
+import selectCsv from './steps/select-csv.vue'
+import mapCsv from './steps/map-csv.vue'
 
 export default {
-  components: { SelectCsv },
+  components: { selectCsv, mapCsv },
   data: () => ({
     file: null
   }),
   computed: {
-    step: {
-      get() {
-        return this.currentStep
-      },
-      set(value) {
-        this.setCurrentStep(value)
-      }
+    step() {
+      return this.currentStep
     },
     ...mapState('csv', ['currentStep'])
-  },
-  methods: {
-    ...mapMutations('csv', ['setCurrentStep'])
   }
 }
 </script>
