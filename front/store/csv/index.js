@@ -1,6 +1,5 @@
 export const state = () => ({
-  file: null,
-  currentStep: 1,
+  currentStep: null,
   settings: []
 })
 
@@ -11,9 +10,6 @@ const newSetting = {
 }
 
 export const mutations = {
-  setFile(state, file) {
-    state.file = file
-  },
   setCurrentStep(state, step) {
     state.currentStep = step
   },
@@ -32,8 +28,23 @@ export const mutations = {
 }
 
 export const getters = {
-  csvContent(state) {
-    const fileReader = new FileReader()
-    return fileReader.readAsText(state.csv)
+  convertQuery(state) {
+    const query = { step: state.currentStep }
+
+    if (state.file.fileKey) {
+      query.csv = state.file.fileKey
+    }
+
+    return query
+  }
+}
+
+export const actions = {
+  pushStep({ commit, getters }, step) {
+    commit('setCurrentStep', step)
+    this.$router.push({
+      path: '/',
+      query: getters.convertQuery
+    })
   }
 }
