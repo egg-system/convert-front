@@ -1,29 +1,10 @@
 export const state = () => ({
-  currentStep: null,
-  settings: []
+  currentStep: null
 })
-
-const newSetting = {
-  name: null,
-  from: null,
-  converter: null
-}
 
 export const mutations = {
   setCurrentStep(state, step) {
     state.currentStep = step
-  },
-  addSetting(state) {
-    const setting = { ...newSetting }
-    setting.id = state.settings.length + 1
-
-    state.settings.push(setting)
-  },
-  updateSetting(state, { index, key, value }) {
-    const settings = state.settings.concat()
-    settings[index][key] = value
-
-    state.settings = settings
   }
 }
 
