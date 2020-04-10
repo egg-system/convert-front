@@ -1,3 +1,4 @@
+import parse from 'csv-parse/lib/sync'
 import { generateHash } from '@/plugins/generateHash'
 
 export const state = () => ({
@@ -15,6 +16,19 @@ export const mutations = {
   },
   setFileKey(state, fileKey) {
     state.fileKey = fileKey
+  }
+}
+
+export const getters = {
+  csvHeader(state) {
+    if (!state.content) {
+      return []
+    }
+
+    const contents = parse(state.content, { to_line: 1 })
+    return contents[0].map((value, key) => {
+      return { value: key, text: value }
+    })
   }
 }
 
@@ -36,7 +50,7 @@ export const actions = {
 
     return true
   },
-  async putFile({ commit, state, error }, file) {
+  async putFile({ commit, dispatch, state, error }, file) {
     commit('setFile', file)
 
     const fileKey = await generateHash(file)
@@ -46,6 +60,7 @@ export const actions = {
       await this.$axios.put(`/files/${state.fileKey}`, file, {
         headers: { 'Content-Type': 'text/csv' }
       })
+      await dispatch('getFile', state.fileKey)
     } catch (apiError) {
       error({
         statusCode: apiError.response.status,
