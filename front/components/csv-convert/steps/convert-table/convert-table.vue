@@ -1,46 +1,42 @@
 <template>
   <v-data-table
-    :headers="headers"
+    :headers="tableHeaders"
     :items="settings"
     disable-filtering
     disable-pagination
     disable-sort
     hide-default-footer
   >
-    <template v-slot:item.name="{ item }">
-      <v-container>
-        <v-text-field
-          :value="item.name"
-          @input="(value) => updateItem(item.id, 'name', value)"
-        />
-      </v-container>
-    </template>
     <template v-slot:no-data>
       <v-container>
         <p>変換設定がありません。追加してください。</p>
-        <v-btn color="primary" @click="addSetting">追加する</v-btn>
+        <v-btn color="primary" @click="addSettings">追加する</v-btn>
       </v-container>
     </template>
   </v-data-table>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
-import { headers } from './convert-table'
+import { mapGetters, mapState, mapMutations } from 'vuex'
+import { headers, converters } from './convert-table'
 
 export default {
   computed: {
-    headers() {
+    tableHeaders() {
       return headers
     },
-    ...mapState('csv', ['settings'])
+    converters() {
+      return converters
+    },
+    ...mapState('csv/converter', ['settings']),
+    ...mapGetters('csv/file', ['csvHeader'])
   },
   methods: {
     updateItem(id, key, value) {
       const index = id - 1
-      this.updateSetting({ index, key, value })
+      this.updateSettings({ index, key, value })
     },
-    ...mapMutations('csv', ['addSetting', 'updateSetting'])
+    ...mapMutations('csv/converter', ['addSettings', 'updateSettings'])
   }
 }
 </script>

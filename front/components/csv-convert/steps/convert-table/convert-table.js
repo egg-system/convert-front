@@ -8,14 +8,18 @@ export const headers = [
     value: 'name'
   },
   {
-    text: '変換元',
-    value: 'from'
+    text: '変換内容',
+    value: 'description'
   },
   {
-    text: '変換方法',
-    value: 'converter'
-  },
+    text: 'アクション',
+    value: 'action'
+  }
+]
+
+export const converters = [
   {
-    text: 'アクション'
+    text: 'コード変換',
+    value: 'code'
   }
 ]
