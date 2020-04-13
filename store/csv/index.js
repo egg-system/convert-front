@@ -31,12 +31,5 @@ export const actions = {
       path: '/',
       query: getters.convertQuery
     })
-  },
-  async doConvert({ state }, step) {
-    const csvKey = state.file.fileKey
-    const configKey = state.converter.settingsKey
-
-    console.log(csvKey, configKey)
-    return await true
   }
 }

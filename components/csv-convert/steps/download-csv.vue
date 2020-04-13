@@ -5,14 +5,14 @@
     </v-stepper-step>
     <v-stepper-content :step="step">
       <v-container>
-        <v-btn color="primary" @click="downloadCsv">ダウンロードする</v-btn>
+        <v-btn color="primary" :href="downloadUrl">ダウンロードする</v-btn>
       </v-container>
     </v-stepper-content>
   </v-container>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import stepsMixins from './steps-mixins'
 
 export default {
@@ -21,13 +21,12 @@ export default {
     editable() {
       const query = this.$route.query
       return 'csv' in query && 'settings' in query
-    }
-  },
-  methods: {
-    async downloadCsv() {
-      await this.doConvert()
     },
-    ...mapActions('csv', ['doConvert'])
+    downloadUrl() {
+      return `${this.$axios.defaults.baseURL}/convert-csv?csv=${this.fileKey}&settings=${this.settingsKey}`
+    },
+    ...mapState('csv/file', ['fileKey']),
+    ...mapState('csv/converter', ['settingsKey'])
   }
 }
 </script>
