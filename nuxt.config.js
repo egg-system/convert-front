@@ -1,7 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
-
-// package.jsonが１つ上の階層のため、パスの指定が必要
-require('dotenv').config({ path: './front/.env' })
+require('dotenv').config()
 
 export default {
   mode: 'spa',
