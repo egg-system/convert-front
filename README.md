@@ -1,6 +1,6 @@
 # csv-convert
 
-- CSVの変換サービス
+- CSVの変換サービスのフロントエンド
 
 ## Build Setup
 
