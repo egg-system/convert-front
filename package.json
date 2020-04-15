@@ -1,0 +1,52 @@
+{
+  "name": "csv-convert",
+  "version": "1.0.0",
+  "description": "csv convert service front-end",
+  "author": "egg system",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "test": "jest"
+  },
+  "lint-staged": {
+    "*.{js,vue}": "yarn lint",
+    "*.{css,vue}": "stylelint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.9.7",
+    "@nuxtjs/pwa": "^3.0.0-0",
+    "csv": "^5.3.2",
+    "nuxt": "^2.12.2",
+    "vuex-persistedstate": "^3.0.1",
+    "xxhash-wasm": "^0.4.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/eslint-config": "^2.0.2",
+    "@nuxtjs/eslint-module": "^1.1.0",
+    "@nuxtjs/stylelint-module": "^3.2.2",
+    "@nuxtjs/vuetify": "^1.11.0",
+    "@vue/test-utils": "^1.0.0-beta.33",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^25.3.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-nuxt": ">=0.5.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "jest": "^25.3.0",
+    "lint-staged": "^10.1.2",
+    "prettier": "^2.0.4",
+    "stylelint": "^13.3.0",
+    "vue-jest": "^3.0.5"
+  }
+}
