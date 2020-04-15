@@ -4,15 +4,21 @@
       変換元CSVの選択
     </v-stepper-step>
     <v-stepper-content :step="step">
-      <v-file-input v-model="csv" accept=".csv" single-line show-size />
-      <v-btn
-        class="ma-5"
-        color="primary"
-        :disabled="!selected"
-        @click="putCsvFile"
-      >
-        アップロードする
-      </v-btn>
+      <v-container>
+        <v-row>
+          <v-file-input v-model="csv" accept=".csv" single-line show-size />
+        </v-row>
+        <v-row>
+          <v-btn
+            class="ma-5"
+            color="primary"
+            :disabled="!selected"
+            @click="putCsvFile"
+          >
+            アップロードする
+          </v-btn>
+        </v-row>
+      </v-container>
     </v-stepper-content>
   </v-container>
 </template>
