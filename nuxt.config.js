@@ -1,6 +1,8 @@
 import colors from 'vuetify/es5/util/colors'
 require('dotenv').config()
 
+const isProd = process.env.NODE_ENV === 'production'
+
 export default {
   mode: 'spa',
   /*
@@ -61,7 +63,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: process.env.API_URL
+    baseURL: isProd ? process.env.PROD_API_URL : process.env.API_URL
   },
   /*
    ** vuetify module configuration
