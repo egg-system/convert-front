@@ -3,6 +3,11 @@
 - CSVの変換サービスのフロントエンド
 
 ## Build Setup
+- ENVを設定する
+  - .env.exampleを参考にする
+  - API_URLは以下を使う
+    - https://nfno3labvl.execute-api.ap-northeast-1.amazonaws.com/dev
+    - 本番は別のURLになる
 
 ```bash
 # install dependencies
