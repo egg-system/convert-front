@@ -72,7 +72,6 @@ export const getters = {
 export const actions = {
   async getSettingsFile({ commit }, settingsKey) {
     commit('setSettingsKey', settingsKey)
-    console.log(settingsKey)
 
     try {
       const { data } = await this.$axios.get('/files', {
