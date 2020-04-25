@@ -23,7 +23,15 @@ export default {
       return 'csv' in query && 'settings' in query
     },
     downloadUrl() {
-      return `${this.$axios.defaults.baseURL}/convert-csv?csv=${this.fileKey}&settings=${this.settingsKey}`
+      const queries = {
+        csv: this.fileKey,
+        settings: this.settingsKey
+      }
+
+      const queryString = Object.keys(queries)
+        .map((key) => `${key}=${queries[key]}`)
+        .join('&')
+      return `${this.$axios.defaults.baseURL}/convert-csv?${queryString}`
     },
     ...mapState('csv/file', ['fileKey']),
     ...mapState('csv/converter', ['settingsKey'])

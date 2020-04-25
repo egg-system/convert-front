@@ -37,8 +37,8 @@ export const actions = {
     commit('setFileKey', fileKey)
 
     try {
-      const { data } = await this.$axios.get(`/files/${state.fileKey}`, {
-        headers: { 'Content-Type': 'text/csv' }
+      const { data } = await this.$axios.get('/files', {
+        params: { fileKey: state.fileKey }
       })
       commit('setContent', data)
     } catch (apiError) {
@@ -48,16 +48,20 @@ export const actions = {
       }
     }
   },
-  async putFile({ commit, dispatch, state, error }, file) {
+  async putFile({ commit, dispatch }, file) {
     commit('setFile', file)
 
     const fileKey = await generateHash(file)
     commit('setFileKey', fileKey)
 
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('fileKey', fileKey)
+    await dispatch('doPutFile', formData)
+  },
+  async doPutFile({ state, error, dispatch }, formData) {
     try {
-      await this.$axios.put(`/files/${state.fileKey}`, file, {
-        headers: { 'Content-Type': 'text/csv' }
-      })
+      await this.$axios.put('/files', formData)
       await dispatch('getFile', state.fileKey)
     } catch (apiError) {
       error({
