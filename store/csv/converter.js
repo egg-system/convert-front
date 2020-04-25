@@ -72,9 +72,13 @@ export const getters = {
 export const actions = {
   async getSettingsFile({ commit }, settingsKey) {
     commit('setSettingsKey', settingsKey)
+    console.log(settingsKey)
 
     try {
-      const { data } = await this.$axios.get(`/files/${settingsKey}`)
+      const { data } = await this.$axios.get('/files', {
+        params: { fileKey: settingsKey }
+      })
+
       commit('setSettings', data.convertSettings)
     } catch (apiError) {
       if (apiError.response.status === 404) {
@@ -87,7 +91,10 @@ export const actions = {
     commit('setSettingsKey', settingsKey)
 
     try {
-      await this.$axios.put(`/files/${settingsKey}`, getters.settingFileContent)
+      await this.$axios.put('/files', {
+        fileKey: settingsKey,
+        file: getters.settingFileContent
+      })
     } catch (apiError) {
       error({
         statusCode: apiError.response.status,
