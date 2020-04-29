@@ -16,7 +16,8 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
-        name: 'description',
+        name:
+          '『オンラインで完結、無料のかんたんデータ変換サービス』異なるシステム間でデータをやり取りする際に必要となる「フォーマット変換」「コード値変換」「固定値セット」などを、手軽に誰でも無料で行うことが出来ます。アップロードしたデータは保存されず、変換処理後すぐに削除されるためセキュリティも問題なし。',
         content: process.env.npm_package_description || ''
       }
     ],
