@@ -26,6 +26,6 @@ import convertSteps from '@/components/csv-convert/convert-steps.vue'
 export default {
   layout: 'input',
   components: { convertSteps },
-  middleware: ['parseCsvQuery']
+  middleware: ['parse-csv-query']
 }
 </script>
