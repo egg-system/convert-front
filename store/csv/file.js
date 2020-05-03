@@ -1,5 +1,5 @@
 import parse from 'csv-parse/lib/sync'
-import { generateHash } from '@/plugins/generateHash'
+import { generateHash } from '~/plugins/generate-hash'
 
 export const state = () => ({
   fileKey: null,

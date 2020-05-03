@@ -1,4 +1,4 @@
-import { generateHash } from '@/plugins/generateHash'
+import { generateHash } from '~/plugins/generate-hash'
 
 export const state = () => ({
   settings: [],
