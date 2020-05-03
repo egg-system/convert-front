@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <v-row>
       <v-radio-group
         v-model="isFixedValue"
@@ -11,23 +11,18 @@
       </v-radio-group>
     </v-row>
     <v-row v-if="isFixedValue">
-      <v-text-field v-model="fixedValue" label="固定値を入力する" />
+      <v-text-field v-model="fixedValue" label="固定値を入力する" required />
     </v-row>
-    <v-row v-else>
-      <v-select
-        v-model="fromIndex"
-        :items="csvHeaders"
-        label="取得元の列名を選択する"
-      />
-    </v-row>
-  </v-container>
+    <convert-from-setting-inputs v-else v-model="convertSetting" />
+  </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import convertFormMixins from './convert-form-mixins'
+import convertFormMixins from './mixins/convert-form-mixins'
+import convertFromSettingInputs from './inputs/convert-from-setting-inputs'
 
 export default {
+  components: { convertFromSettingInputs },
   mixins: [convertFormMixins],
   computed: {
     isFixedValue: {
@@ -35,8 +30,6 @@ export default {
         return this.fixedValue !== null
       },
       set(isFixedValue) {
-        this.clearFromValue()
-
         if (isFixedValue) {
           this.fixedValue = ''
         } else {
@@ -49,29 +42,12 @@ export default {
         return this.convertSetting.fixedValue
       },
       set(fixedValue) {
+        // 変換元データ周りの入力データをクリアする
         this.convertSetting = {
-          ...this.convertSetting,
+          name: this.convertSetting.name,
           fixedValue
         }
       }
-    },
-    fromIndex: {
-      get() {
-        return this.convertSetting.fromIndex
-      },
-      set(fromIndex) {
-        this.convertSetting = {
-          ...this.convertSetting,
-          fromIndex
-        }
-      }
-    },
-    ...mapGetters('csv/file', ['csvHeaders'])
-  },
-  methods: {
-    clearFromValue() {
-      this.fromIndex = null
-      this.fixedValue = null
     }
   }
 }
