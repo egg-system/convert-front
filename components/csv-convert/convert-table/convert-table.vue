@@ -34,7 +34,7 @@
 
 <script>
 import { mapGetters, mapState, mapMutations } from 'vuex'
-import convertDialog from '../convert-form/convert-dialog'
+import convertDialog from './convert-dialog'
 import { headers, converters } from './convert-table'
 
 export default {

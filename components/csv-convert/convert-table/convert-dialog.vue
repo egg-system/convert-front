@@ -6,28 +6,18 @@
       </v-icon>
       <v-btn v-else color="primary" dark v-on="on">変換設定の追加</v-btn>
     </template>
-    <v-card>
-      <v-card-title>
-        {{ doUpdate ? 'CSV設定の更新' : 'CSV設定の登録' }}
-      </v-card-title>
-      <v-card-text>
-        <convert-form v-if="isShown" v-model="convertSetting" />
-      </v-card-text>
-      <v-card-actions>
-        <v-row justify="center">
-          <v-btn class="ma-2" color="primary" @click="reflectSetting">
-            {{ doUpdate ? '更新する' : '登録する' }}
-          </v-btn>
-          <v-btn class="ma-2" @click="isShown = false">キヤンセル</v-btn>
-        </v-row>
-      </v-card-actions>
-    </v-card>
+    <convert-form
+      v-if="convertSetting"
+      v-model="convertSetting"
+      :do-update="doUpdate"
+      @cancel="isShown = false"
+    />
   </v-dialog>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
-import convertForm from './convert-form'
+import { mapState } from 'vuex'
+import convertForm from '../convert-form/convert-form'
 
 export default {
   components: { convertForm },
@@ -38,7 +28,8 @@ export default {
     }
   },
   data: () => ({
-    convertSetting: null
+    convertSetting: null,
+    isValid: false
   }),
   computed: {
     doUpdate() {
@@ -64,17 +55,6 @@ export default {
       }
     },
     ...mapState('csv/converter', ['settings'])
-  },
-  methods: {
-    reflectSetting() {
-      const reflectSetting = this.doUpdate
-        ? this.updateSetting
-        : this.addSetting
-
-      reflectSetting(this.convertSetting)
-      this.convertSetting = null
-    },
-    ...mapMutations('csv/converter', ['addSetting', 'updateSetting'])
   }
 }
 </script>
