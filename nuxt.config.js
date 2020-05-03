@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import { head } from './plugins/inject-config.js'
 require('dotenv').config()
 
 const isProd = process.env.NODE_ENV === 'production'
@@ -8,21 +9,7 @@ export default {
   /*
    ** Headers of the page
    */
-  head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: 'Data Convert',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      {
-        hid: 'description',
-        name: 'description',
-        content:
-          '『オンラインで完結、無料のかんたんデータ変換サービス』異なるシステム間でデータをやり取りする際に必要となる「フォーマット変換」「コード値変換」「固定値セット」などを、手軽に誰でも無料で行うことが出来ます。アップロードしたデータは保存されず、変換処理後すぐに削除されるためセキュリティも問題なし。'
-      }
-    ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
-  },
+  head,
   /*
    ** Customize the progress-bar color
    */
