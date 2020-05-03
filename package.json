@@ -1,7 +1,7 @@
 {
   "name": "csv-convert",
   "version": "1.0.0",
-  "description": "csv convert service front-end",
+  "description": "data convert service front-end",
   "author": "egg system",
   "private": true,
   "scripts": {
