@@ -19,7 +19,7 @@
 <script>
 import { mapState } from 'vuex'
 import convertFormMixins from '../../mixins/convert-form-mixins'
-import replaceSettingActions from './replace-setting-actions.vue'
+import replaceSettingActions from './form/replace-setting-actions.vue'
 
 export default {
   components: { replaceSettingActions },

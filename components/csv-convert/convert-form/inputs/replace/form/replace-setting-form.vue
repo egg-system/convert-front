@@ -22,8 +22,8 @@
           </v-row>
         </v-col>
       </v-row>
-      <replace-setting-input-tab
-        v-model="value"
+      <replace-setting-tabs
+        v-model="replaceSetting"
         :error-message="errorMessage"
       />
     </v-form>
@@ -32,10 +32,10 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import replaceSettingInputTab from './replace-setting-input-tab'
+import replaceSettingTabs from './tabs/replace-setting-tabs'
 
 export default {
-  components: { replaceSettingInputTab },
+  components: { replaceSettingTabs },
   props: {
     value: {
       type: Object,
@@ -47,21 +47,29 @@ export default {
     errorMessage: ''
   }),
   computed: {
+    replaceSetting: {
+      get() {
+        return this.value
+      },
+      set(replaceSetting) {
+        this.$emit('input', replaceSetting)
+      }
+    },
     replaceName: {
       get() {
         return this.value.name
       },
       set(replaceName) {
-        this.$emit('input', {
+        this.replaceSetting = {
           ...this.value,
           name: replaceName
-        })
+        }
       }
     }
   },
   methods: {
     cancel() {
-      this.$emit('input', null)
+      this.replaceSetting = null
     },
     reflect() {
       this.$refs.replaceFrom.validate()

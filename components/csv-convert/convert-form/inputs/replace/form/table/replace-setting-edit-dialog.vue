@@ -7,7 +7,7 @@
     large
   >
     <v-icon disabled>mdi-pencil-outline</v-icon>
-    <span class="text--secondary">
+    <span :class="itamValue ? '' : 'text--secondary'">
       {{ itamValue ? itamValue : '(クリックすると、データを入力できます)' }}
     </span>
     <template v-slot:input>
