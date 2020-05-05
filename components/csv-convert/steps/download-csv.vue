@@ -5,7 +5,20 @@
     </v-stepper-step>
     <v-stepper-content :step="step">
       <v-container>
-        <v-btn color="primary" :href="downloadUrl">ダウンロードする</v-btn>
+        <v-row>
+          <v-radio-group v-model="encode" label="文字コードを選択する" row>
+            <v-radio
+              v-for="encodeItem in encodeItems"
+              :key="encodeItem"
+              :label="encodeItem"
+              :value="encodeItem"
+              row
+            />
+          </v-radio-group>
+        </v-row>
+        <v-row>
+          <v-btn color="primary" :href="downloadUrl">ダウンロードする</v-btn>
+        </v-row>
       </v-container>
     </v-stepper-content>
   </v-container>
@@ -17,13 +30,20 @@ import stepsMixins from './steps-mixins'
 
 export default {
   mixins: [stepsMixins],
+  data: () => ({
+    encode: 'SJIS'
+  }),
   computed: {
+    encodeItems() {
+      return ['SJIS', 'UTF8']
+    },
     editable() {
       const query = this.$route.query
       return 'csv' in query && 'settings' in query
     },
     downloadUrl() {
       const queries = {
+        encode: this.encode,
         csv: this.fileKey,
         settings: this.settingsKey
       }
