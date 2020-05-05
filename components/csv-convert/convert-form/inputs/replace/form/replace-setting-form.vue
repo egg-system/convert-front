@@ -22,24 +22,20 @@
           </v-row>
         </v-col>
       </v-row>
-      <v-container>
-        <v-row v-if="errorMessage">
-          <v-alert type="error">{{ errorMessage }}</v-alert>
-        </v-row>
-        <v-row>
-          <replace-setting-table v-model="replaceValues" />
-        </v-row>
-      </v-container>
+      <replace-setting-input-tab
+        v-model="value"
+        :error-message="errorMessage"
+      />
     </v-form>
   </v-container>
 </template>
 
 <script>
 import { mapMutations } from 'vuex'
-import replaceSettingTable from './table/replace-setting-table'
+import replaceSettingInputTab from './replace-setting-input-tab'
 
 export default {
-  components: { replaceSettingTable },
+  components: { replaceSettingInputTab },
   props: {
     value: {
       type: Object,
@@ -48,7 +44,7 @@ export default {
   },
   data: () => ({
     isFormValid: false,
-    errorMessage: null
+    errorMessage: ''
   }),
   computed: {
     replaceName: {
@@ -59,17 +55,6 @@ export default {
         this.$emit('input', {
           ...this.value,
           name: replaceName
-        })
-      }
-    },
-    replaceValues: {
-      get() {
-        return this.value.value
-      },
-      set(replaceValues) {
-        this.$emit('input', {
-          ...this.value,
-          value: replaceValues
         })
       }
     }
@@ -89,11 +74,12 @@ export default {
       this.cancel()
     },
     validation() {
-      this.errorMessage = null
+      this.errorMessage = ''
 
       const isValidReplaces = this.value.value.every((value) => {
         return value.from && value.to
       })
+
       if (!isValidReplaces) {
         this.errorMessage = '未入力のコード変換設定があります'
       }
