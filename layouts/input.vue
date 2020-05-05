@@ -43,6 +43,7 @@
     <v-footer min-height="56" app dark>
       <v-row class="py-2 pl-2 body-2 text-center">
         <v-col>
+          <!-- 利用規約 -->
           <v-dialog v-model="dialog" width="70%">
             <template v-slot:activator="{ on }">
               <button color="primary" dark v-on="on">
@@ -50,28 +51,23 @@
               </button>
             </template>
             <v-card>
-              <v-flex>
-                <v-row class="term-header">
-                  <v-col cols="11">
-                    <v-card-title>
-                      <h3>利用規約</h3>
-                    </v-card-title>
-                  </v-col>
-                  <v-col cols="1">
-                    <v-card-actions class="pt-3">
-                      <v-btn icon @click="dialog = false">
-                        <v-icon>mdi-close</v-icon>
-                      </v-btn>
-                    </v-card-actions>
-                  </v-col>
-                </v-row>
-              </v-flex>
+              <v-row class="term-header">
+                <v-card-title class="term-title">
+                  <h3 class="pl-10">利用規約</h3>
+                </v-card-title>
+                <v-card-actions class="pt-3">
+                  <v-btn icon @click="dialog = false">
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
+                </v-card-actions>
+              </v-row>
               <v-card-text>
                 <termOfService />
               </v-card-text>
             </v-card>
           </v-dialog>
           <span>&ensp;/</span>
+          <!-- LINK -->
           <a href="https://eggsystem.co.jp/" target="blank">
             <span>
               &ensp;Team x-faCE (EGG SYSTEM Inc.)
@@ -94,8 +90,7 @@ export default {
   data() {
     return {
       image_src: require('@/assets/images/xfacelogo.png'),
-      showModal: false,
-      currentModalComponent: termOfService
+      dialog: false
     }
   },
 
@@ -125,11 +120,13 @@ span {
   padding: 0px;
 }
 h3 {
-  text-align: center;
   width: 100%;
   color: #303030;
 }
 .term-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
   vertical-align: middle;
 }
 </style>
