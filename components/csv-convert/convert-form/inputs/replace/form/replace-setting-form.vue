@@ -2,30 +2,26 @@
   <v-container>
     <v-form ref="replaceFrom" v-model="isFormValid">
       <v-row align="baseline">
-        <v-col>
-          <v-text-field
-            v-model="replaceName"
-            :rules="[
-              (value) => !!value || 'コード変換設定の名前を入力してください'
-            ]"
-            label="コード変換設定の名前を入力する"
-          />
-        </v-col>
-        <v-col>
-          <v-row justify="end" align="center">
-            <v-btn class="ma-2" color="primary" outlined @click="reflect">
-              反映する
-            </v-btn>
-            <v-btn class="ma-2" color="red" outlined @click="cancel">
-              キャンセル
-            </v-btn>
-          </v-row>
-        </v-col>
+        <v-text-field
+          v-model="replaceName"
+          :rules="[
+            (value) => !!value || 'コード変換設定の名前を入力してください'
+          ]"
+          label="コード変換設定の名前を入力する"
+        />
       </v-row>
       <replace-setting-tabs
         v-model="replaceSetting"
         :error-message="errorMessage"
       />
+      <v-row justify="end" align="center">
+        <v-btn class="ma-2" color="primary" outlined @click="reflect">
+          反映する
+        </v-btn>
+        <v-btn class="ma-2" color="red" outlined @click="cancel">
+          キャンセル
+        </v-btn>
+      </v-row>
     </v-form>
   </v-container>
 </template>

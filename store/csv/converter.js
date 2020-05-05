@@ -74,6 +74,7 @@ export const getters = {
   },
   settingFileContent(state, getters, rootState, rootGetters) {
     return JSON.stringify({
+      replaceSettings: state.replaces,
       convertSettings: state.settings,
       csvHeaders: rootGetters['csv/file/csvHeaders']
     })
