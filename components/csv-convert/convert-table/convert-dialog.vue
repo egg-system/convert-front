@@ -17,6 +17,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { defaultConvert } from '../convert-form/convert-constants'
 import convertForm from '../convert-form/convert-form'
 
 export default {
@@ -40,12 +41,7 @@ export default {
         return this.settings[this.settingIndex]
       }
 
-      return {
-        name: null,
-        fixedValue: null,
-        fromIndex: null,
-        replaceKey: null
-      }
+      return defaultConvert
     },
     isShown: {
       get() {

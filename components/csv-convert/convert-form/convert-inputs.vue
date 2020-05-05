@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { defaultConvert } from '../convert-form/convert-constants'
 import convertFormMixins from './mixins/convert-form-mixins'
 import convertFromSettingInputs from './inputs/convert-from-setting-inputs'
 
@@ -44,6 +45,7 @@ export default {
       set(fixedValue) {
         // 変換元データ周りの入力データをクリアする
         this.convertSetting = {
+          ...defaultConvert,
           name: this.convertSetting.name,
           fixedValue
         }
