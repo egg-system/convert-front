@@ -4,7 +4,7 @@
       <v-btn class="ma-2" color="primary" @click="reflectSetting">
         {{ doUpdate ? '更新する' : '登録する' }}
       </v-btn>
-      <v-btn class="ma-2" @click="cancel">キヤンセル</v-btn>
+      <v-btn class="ma-2" @click="cancel">キャンセル</v-btn>
     </v-row>
   </v-card-actions>
 </template>
