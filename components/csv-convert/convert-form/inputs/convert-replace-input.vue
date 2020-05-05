@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import convertFormMixins from '../mixins/convert-form-mixins'
 import replaceSettingInput from './replace/replace-setting-input.vue'
 
@@ -20,6 +21,9 @@ export default {
   data: () => ({
     doReplace: false
   }),
+  computed: {
+    ...mapState('csv/converter', ['replaces'])
+  },
   watch: {
     doReplace() {
       if (!this.doReplace) {
@@ -31,6 +35,14 @@ export default {
     }
   },
   created() {
+    const replaceKey = this.convertSetting.replaceKey
+    if (!Object.keys(this.replaces).includes(replaceKey)) {
+      this.convertSetting = {
+        ...this.convertSetting,
+        replaceKey: null
+      }
+    }
+
     this.doReplace = !!this.convertSetting.replaceKey
   }
 }
