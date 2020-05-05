@@ -4,7 +4,7 @@ require('dotenv').config()
 const isProd = process.env.NODE_ENV === 'production'
 
 export default {
-  mode: 'spa',
+  mode: 'universal',
   /*
    ** Headers of the page
    */
