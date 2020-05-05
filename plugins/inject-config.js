@@ -30,10 +30,10 @@ export const head = {
     {
       hid: 'og:image',
       property: 'og:image',
-      content: 'https://example.com/img/ogp/common.jpg'
+      content: 'https://convert-service.x-face.net/ogp.jpg'
     },
     { name: 'twitter:card', content: 'summary' },
-    { name: 'twitter:site', content: '@@xfaCE_egg' }
+    { name: 'twitter:site', content: '@xfaCE_egg' }
   ],
   link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
 }
