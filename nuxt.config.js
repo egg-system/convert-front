@@ -20,8 +20,7 @@ export default {
           '『オンラインで完結、無料のかんたんデータ変換サービス』異なるシステム間でデータをやり取りする際に必要となる「フォーマット変換」「コード値変換」「固定値セット」などを、手軽に誰でも無料で行うことが出来ます。アップロードしたデータは保存されず、変換処理後すぐに削除されるためセキュリティも問題なし。',
         content: process.env.npm_package_description || ''
       },
-      { hid: 'description', name: 'description', content: 'Data Convert' },
-      { hid: 'og:site_name', property: 'og:site_name', content: 'サイト名' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'Data Convert' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
       {
         hid: 'og:url',
