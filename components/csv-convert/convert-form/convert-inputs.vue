@@ -46,6 +46,7 @@ export default {
         // 変換元データ周りの入力データをクリアする
         this.convertSetting = {
           ...defaultConvert,
+          index: this.convertSetting.index,
           name: this.convertSetting.name,
           fixedValue
         }
