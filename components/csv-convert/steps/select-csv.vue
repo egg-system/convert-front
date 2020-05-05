@@ -6,7 +6,13 @@
     <v-stepper-content :step="step">
       <v-container>
         <v-row>
-          <v-file-input v-model="csv" accept=".csv" single-line show-size />
+          <v-file-input
+            v-model="csv"
+            label="変換元CSVを選択する"
+            accept=".csv"
+            single-line
+            show-size
+          />
         </v-row>
         <v-row>
           <v-btn
