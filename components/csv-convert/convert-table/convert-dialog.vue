@@ -43,7 +43,8 @@ export default {
       return {
         name: null,
         fixedValue: null,
-        fromIndex: null
+        fromIndex: null,
+        replaceKey: null
       }
     },
     isShown: {
