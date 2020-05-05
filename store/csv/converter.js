@@ -2,10 +2,16 @@ import { generateHash } from '~/plugins/generate-hash'
 
 export const state = () => ({
   settings: [],
-  settingsKey: null
+  settingsKey: null,
+  replaces: {}
 })
 
 export const mutations = {
+  addReplace(state, replaceSetting) {
+    const replaces = { ...state.replaces }
+    replaces[replaceSetting.name] = replaceSetting.value
+    state.replaces = replaces
+  },
   addSetting(state, newSetting) {
     const convertSettings = state.settings.concat()
     convertSettings.push({
@@ -26,6 +32,11 @@ export const mutations = {
       setting.index = index
       return setting
     })
+  },
+  deleteReplace(state, replaceKey) {
+    const replaces = { ...state.replaces }
+    delete replaces[replaceKey]
+    state.replaces = replaces
   },
   setSettingsKey(state, key) {
     state.settingsKey = key
