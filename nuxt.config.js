@@ -37,6 +37,11 @@ export default {
         hid: 'og:description',
         property: 'og:description',
         content: '共通ディスクリプション'
+      },
+      {
+        hid: 'og:image',
+        property: 'og:image',
+        content: 'https://eggsystem.co.jp/_nuxt/img/4c7532d.jpg'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
