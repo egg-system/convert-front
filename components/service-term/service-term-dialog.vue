@@ -1,9 +1,9 @@
 <template>
   <v-dialog v-model="dialog" width="70%">
     <template v-slot:activator="{ on }">
-      <button color="primary" dark v-on="on">
+      <v-btn dark depressed v-on="on">
         &ensp;利用規約
-      </button>
+      </v-btn>
     </template>
     <v-card>
       <v-row class="term-header">
@@ -33,3 +33,12 @@ export default {
   })
 }
 </script>
+
+<style scoped>
+.term-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  vertical-align: middle;
+}
+</style>

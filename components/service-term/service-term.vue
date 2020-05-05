@@ -9,6 +9,7 @@
     <div v-for="(term, index) in terms" :key="index" class="ma-4">
       <h3>{{ getTermHeader(term.header, index) }}</h3>
       <ol v-for="(article, articleIndex) in term.articles" :key="article.text">
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <p v-html="getTermText(article.text, articleIndex)"></p>
         <div v-if="article.details">
           <ul v-for="detail in article.details" :key="detail">
