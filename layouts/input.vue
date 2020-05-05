@@ -40,6 +40,7 @@
         <nuxt />
       </v-container>
     </v-content>
+    <!-- footer -->
     <v-footer min-height="56" app dark>
       <v-row class="py-2 pl-2 body-2 text-center">
         <v-col>
