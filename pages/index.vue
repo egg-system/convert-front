@@ -18,17 +18,17 @@
       <convert-steps />
     </v-container>
     <!-- release note -->
-    <v-container>
-      <v-flex class="ml-3 release_note justify-center">
+    <v-container class="release_note">
+      <v-flex class="ml-3 justify-center align-center">
         <v-row class="font-weight-bold subtitle-2">
           お知らせ
         </v-row>
         <v-row class="caption">
-          <v-col>2020/5/7</v-col>
+          <v-col cols="1">2020/5/7</v-col>
           <v-col>α版リリース</v-col>
         </v-row>
         <v-row class="caption">
-          <v-col>2020/5/18</v-col>
+          <v-col cols="1">2020/5/18</v-col>
           <v-col>
             <p>
               ・変換機能の追加（2項目の結合、日付/金額のフォーマット変換、レコード分割、コード採番、文字列付与、超過文字列カット）
@@ -39,7 +39,7 @@
           </v-col>
         </v-row>
         <v-row class="caption">
-          <v-col>2020/7頃</v-col>
+          <v-col cols="1">2020/7頃</v-col>
           <v-col>正式版リリース</v-col>
         </v-row>
       </v-flex>
@@ -59,8 +59,8 @@ export default {
 
 <style scoped>
 .release_note {
-  padding: 15px;
-  height: 200px;
+  width: 98%;
+  height: 150px;
   overflow-x: hidden;
   overflow-y: scroll;
 }
@@ -68,6 +68,6 @@ export default {
   padding: 3px;
 }
 p {
-  margin: none;
+  margin-bottom: none;
 }
 </style>
