@@ -11,7 +11,7 @@ export const head = {
       hid: 'description',
       name: 'description',
       content:
-        '『オンラインで完結、無料のかんたんデータ変換サービス』「フォーマット変換」「コード値変換」「固定値セット」などを無料でできます。データは保存されないため、セキュリティも問題なし。'
+        '『オンラインで完結、無料のかんたんデータ変換サービス』無料で利用できます。データは1時間後に削除されるため、セキュリティも問題なし。'
     },
     { hid: 'og:site_name', property: 'og:site_name', content: 'Data Convert' },
     { hid: 'og:type', property: 'og:type', content: 'website' },
@@ -25,7 +25,7 @@ export const head = {
       hid: 'og:description',
       property: 'og:description',
       content:
-        '『オンラインで完結、無料のかんたんデータ変換サービス』「フォーマット変換」「コード値変換」「固定値セット」などを無料でできます。データは保存されないため、セキュリティも問題なし。'
+        '『オンラインで完結、無料のかんたんデータ変換サービス』無料で利用できます。データは1時間後に削除されるため、セキュリティも問題なし。'
     },
     {
       hid: 'og:image',
