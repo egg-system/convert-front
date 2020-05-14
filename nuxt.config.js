@@ -1,5 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
-import { head } from './plugins/inject-config.js'
+import { head } from './plugins/inject-nuxt-config.js'
+
 require('dotenv').config()
 
 const isProd = process.env.NODE_ENV === 'production'
@@ -18,10 +19,19 @@ export default {
    ** Global CSS
    */
   css: [],
+  env: {
+    API_URL: isProd ? process.env.PROD_API_URL : process.env.DEV_API_URL,
+    API_KEY: isProd ? process.env.PROD_API_KEY : process.env.DEV_API_KEY
+  },
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/storage.js', ssr: false }],
+  plugins: [
+    { src: '~/plugins/storage.js', ssr: false },
+    { src: '~/plugins/inject-axios-config.js', ssr: false },
+    // APIを叩くため、inject-axios-configの後ろにする必要がある
+    { src: '~/middleware/parse-csv-query.js', ssr: false }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -40,18 +50,15 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    [
+      '@nuxtjs/google-tag-manager',
+      { id: process.env.GTM_ID, pageTracking: true }
+    ]
   ],
   server: {
     host: process.env.BASE_HOST || 'localhost',
     port: process.env.BASE_PORT || 3000
-  },
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
-  axios: {
-    baseURL: isProd ? process.env.PROD_API_URL : process.env.API_URL
   },
   /*
    ** vuetify module configuration
