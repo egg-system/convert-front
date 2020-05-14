@@ -41,8 +41,9 @@ export const mutations = {
   setSettingsKey(state, key) {
     state.settingsKey = key
   },
-  setSettings(state, settings) {
-    state.settings = settings
+  setSettings(state, { convertSettings, replaceSettings }) {
+    state.settings = convertSettings
+    state.replaces = replaceSettings
   }
 }
 
@@ -90,7 +91,7 @@ export const actions = {
         params: { fileKey: settingsKey }
       })
 
-      commit('setSettings', data.convertSettings)
+      commit('setSettings', data)
     } catch (apiError) {
       if (apiError.response.status === 404) {
         this.$router.push('/')
