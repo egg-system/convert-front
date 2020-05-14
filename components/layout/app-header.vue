@@ -1,6 +1,6 @@
 <template>
   <v-app-bar fixed app dark flat>
-    <v-btn href="https://eggsystem.co.jp/" target="blank" depressed>
+    <v-btn href="https://convert-service.x-face.net/" depressed>
       <v-img
         :src="imageSrc"
         class="mr-5"
@@ -22,13 +22,13 @@
 
 <script>
 import formLink from './header/form-link'
-import releaseNote from './header/release-note'
+import releaseNote from './header/release-note/release-note'
 
 export default {
   components: { formLink, releaseNote },
   data() {
     return {
-      imageSrc: require('@/assets/images/xfacelogo.png')
+      imageSrc: require('@/assets/images/xface-logo-white.png')
     }
   },
   computed: {
