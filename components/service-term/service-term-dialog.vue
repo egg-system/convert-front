@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" width="70%">
     <template v-slot:activator="{ on }">
-      <v-btn dark depressed v-on="on">
+      <v-btn depressed v-on="on">
         &ensp;利用規約
       </v-btn>
     </template>
