@@ -12,11 +12,11 @@
           <service-term-dialog />
           <span>&ensp;/</span>
           <v-btn href="https://eggsystem.co.jp/" target="blank" depressed>
-            <span>
-              &ensp;Team x-faCE (EGG SYSTEM Inc.)
+            <span class="team-link">
+              &ensp;@{{ new Date().getFullYear() }}
+              x-faCE (EGG SYSTEM Inc.) Managemented
             </span>
           </v-btn>
-          <span>&copy;{{ new Date().getFullYear() }}</span>
         </v-col>
       </v-row>
     </v-footer>
@@ -34,3 +34,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.team-link {
+  font-weight: 400;
+  text-transform: none;
+}
+</style>
