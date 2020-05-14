@@ -21,8 +21,8 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import convertTable from '../convert-table/convert-table.vue'
 import stepsMixins from './steps-mixins'
-import convertTable from './convert-table/convert-table.vue'
 
 export default {
   components: { convertTable },

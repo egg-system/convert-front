@@ -1,4 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
+import { head } from './plugins/inject-nuxt-config.js'
+
 require('dotenv').config()
 
 const isProd = process.env.NODE_ENV === 'production'
@@ -8,43 +10,7 @@ export default {
   /*
    ** Headers of the page
    */
-  head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      {
-        hid: 'description',
-        name:
-          '『オンラインで完結、無料のかんたんデータ変換サービス』異なるシステム間でデータをやり取りする際に必要となる「フォーマット変換」「コード値変換」「固定値セット」などを、手軽に誰でも無料で行うことが出来ます。アップロードしたデータは保存されず、変換処理後すぐに削除されるためセキュリティも問題なし。',
-        content: process.env.npm_package_description || ''
-      },
-      { hid: 'og:site_name', property: 'og:site_name', content: 'Data Convert' },
-      { hid: 'og:type', property: 'og:type', content: 'website' },
-      {
-        hid: 'og:url',
-        property: 'og:url',
-        content: 'https://convert-service.x-face.net/?step=1'
-      },
-      {
-        hid: 'og:title',
-        property: 'og:title',
-        content: 'convert-service.x-face'
-      },
-      {
-        hid: 'og:description',
-        property: 'og:description',
-        content: '共通ディスクリプション'
-      },
-      {
-        hid: 'og:image',
-        property: 'og:image',
-        content: 'https://eggsystem.co.jp/_nuxt/img/4c7532d.jpg'
-      }
-    ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
-  },
+  head,
   /*
    ** Customize the progress-bar color
    */
@@ -53,10 +19,19 @@ export default {
    ** Global CSS
    */
   css: [],
+  env: {
+    API_URL: isProd ? process.env.PROD_API_URL : process.env.DEV_API_URL,
+    API_KEY: isProd ? process.env.PROD_API_KEY : process.env.DEV_API_KEY
+  },
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/storage.js', ssr: false }],
+  plugins: [
+    { src: '~/plugins/storage.js', ssr: false },
+    { src: '~/plugins/inject-axios-config.js', ssr: false },
+    // APIを叩くため、inject-axios-configの後ろにする必要がある
+    { src: '~/middleware/parse-csv-query.js', ssr: false }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -75,18 +50,15 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    [
+      '@nuxtjs/google-tag-manager',
+      { id: process.env.GTM_ID, pageTracking: true }
+    ]
   ],
   server: {
     host: process.env.BASE_HOST || 'localhost',
     port: process.env.BASE_PORT || 3000
-  },
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
-  axios: {
-    baseURL: isProd ? process.env.PROD_API_URL : process.env.API_URL
   },
   /*
    ** vuetify module configuration

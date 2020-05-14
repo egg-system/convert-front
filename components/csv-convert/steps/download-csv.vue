@@ -5,7 +5,29 @@
     </v-stepper-step>
     <v-stepper-content :step="step">
       <v-container>
-        <v-btn color="primary" :href="downloadUrl">ダウンロードする</v-btn>
+        <v-row>
+          <v-radio-group v-model="encode" label="文字コードを選択する" row>
+            <v-radio
+              v-for="encodeItem in encodeItems"
+              :key="encodeItem"
+              :label="encodeItem"
+              :value="encodeItem"
+              row
+            />
+          </v-radio-group>
+        </v-row>
+        <v-row>
+          <v-btn
+            class="ma-2"
+            color="primary"
+            :disabled="loading"
+            @click="doConvert"
+          >
+            変換する
+          </v-btn>
+          <!-- 自動でダウンロードさせるための疑似要素 -->
+          <a v-show="false" ref="download" :href="downloadUrl" download />
+        </v-row>
       </v-container>
     </v-stepper-content>
   </v-container>
@@ -17,24 +39,38 @@ import stepsMixins from './steps-mixins'
 
 export default {
   mixins: [stepsMixins],
+  data: () => ({
+    encode: 'SJIS',
+    downloadUrl: null,
+    loading: false
+  }),
   computed: {
+    encodeItems() {
+      return ['SJIS', 'UTF8']
+    },
     editable() {
       const query = this.$route.query
       return 'csv' in query && 'settings' in query
     },
-    downloadUrl() {
-      const queries = {
-        csv: this.fileKey,
-        settings: this.settingsKey
-      }
-
-      const queryString = Object.keys(queries)
-        .map((key) => `${key}=${queries[key]}`)
-        .join('&')
-      return `${this.$axios.defaults.baseURL}/convert-csv?${queryString}`
+    convertUrl() {
+      return `/convert-csv?csv=${this.fileKey}&settings=${this.settingsKey}&encode=${this.encode}`
     },
     ...mapState('csv/file', ['fileKey']),
     ...mapState('csv/converter', ['settingsKey'])
+  },
+  methods: {
+    async doConvert() {
+      this.loading = true
+
+      const { data } = await this.$axios.get(this.convertUrl)
+      this.downloadUrl = data.url
+
+      this.$nextTick(() => {
+        // $refs.downloadはaタグになる
+        this.$refs.download.click()
+        this.loading = false
+      })
+    }
   }
 }
 </script>

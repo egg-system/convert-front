@@ -1,11 +1,17 @@
-import { generateHash } from '@/plugins/generateHash'
+import { generateHash } from '~/plugins/generate-hash'
 
 export const state = () => ({
   settings: [],
-  settingsKey: null
+  settingsKey: null,
+  replaces: {}
 })
 
 export const mutations = {
+  addReplace(state, replaceSetting) {
+    const replaces = { ...state.replaces }
+    replaces[replaceSetting.name] = replaceSetting.value
+    state.replaces = replaces
+  },
   addSetting(state, newSetting) {
     const convertSettings = state.settings.concat()
     convertSettings.push({
@@ -27,11 +33,17 @@ export const mutations = {
       return setting
     })
   },
+  deleteReplace(state, replaceKey) {
+    const replaces = { ...state.replaces }
+    delete replaces[replaceKey]
+    state.replaces = replaces
+  },
   setSettingsKey(state, key) {
     state.settingsKey = key
   },
-  setSettings(state, settings) {
-    state.settings = settings
+  setSettings(state, { convertSettings, replaceSettings }) {
+    state.settings = convertSettings
+    state.replaces = replaceSettings
   }
 }
 
@@ -63,6 +75,7 @@ export const getters = {
   },
   settingFileContent(state, getters, rootState, rootGetters) {
     return JSON.stringify({
+      replaceSettings: state.replaces,
       convertSettings: state.settings,
       csvHeaders: rootGetters['csv/file/csvHeaders']
     })
@@ -78,7 +91,7 @@ export const actions = {
         params: { fileKey: settingsKey }
       })
 
-      commit('setSettings', data.convertSettings)
+      commit('setSettings', data)
     } catch (apiError) {
       if (apiError.response.status === 404) {
         this.$router.push('/')

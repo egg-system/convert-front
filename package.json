@@ -1,7 +1,7 @@
 {
   "name": "data-convert",
   "version": "1.0.0",
-  "description": "csv convert service front-end",
+  "description": "data convert service front-end",
   "author": "egg system",
   "private": true,
   "scripts": {
@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.9.7",
+    "@nuxtjs/google-tag-manager": "^2.3.2",
     "@nuxtjs/pwa": "^3.0.0-0",
     "csv": "^5.3.2",
     "nuxt": "^2.12.2",
