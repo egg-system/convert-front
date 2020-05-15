@@ -18,6 +18,7 @@
         </v-row>
         <v-row>
           <v-btn
+            id="btn-download-csv"
             class="ma-2"
             color="primary"
             :disabled="loading"

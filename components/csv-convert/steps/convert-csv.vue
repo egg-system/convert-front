@@ -7,6 +7,7 @@
       <v-container>
         <convert-table />
         <v-btn
+          id="btn-save-convert-config"
           class="ma-5"
           color="primary"
           :disabled="disabled"

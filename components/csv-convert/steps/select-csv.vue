@@ -16,6 +16,7 @@
         </v-row>
         <v-row>
           <v-btn
+            id="btn-upload-csv"
             class="ma-5"
             color="primary"
             :disabled="!selected"
