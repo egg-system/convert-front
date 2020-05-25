@@ -5,6 +5,9 @@
         mdi-pencil
       </v-icon>
       <v-btn v-else color="primary" dark v-on="on">変換設定の追加</v-btn>
+      <!-- <v-btn class="ma-2" color="primary" @click="reflectSetting">
+        {{ '登録する' }}
+      </v-btn> -->
     </template>
     <convert-form
       v-if="convertSetting"
