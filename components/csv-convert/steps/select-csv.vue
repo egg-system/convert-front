@@ -1,14 +1,14 @@
 <template>
   <v-container>
     <v-stepper-step :step="step" editable>
-      変換元CSVの選択
+      変換したいCSVファイルの選択
     </v-stepper-step>
     <v-stepper-content :step="step">
       <v-container>
         <v-row>
           <v-file-input
             v-model="csv"
-            label="変換元CSVを選択する"
+            label="変換したいCSVファイルを選択する"
             accept=".csv"
             single-line
             show-size

@@ -67,7 +67,7 @@ export const getters = {
       if (getters.getCsvColumnName(convertSetting.fromIndex)) {
         const columnName = getters.getCsvColumnName(convertSetting.fromIndex)
         const displayFromIndex = convertSetting.fromIndex + 1
-        return `変換元CSVの${displayFromIndex}列目「${columnName}」からデータを取得する`
+        return `変換したいCSVファイルの${displayFromIndex}列目「${columnName}」からデータを取得する`
       }
 
       return null
