@@ -9,7 +9,7 @@
   >
     <template v-slot:activator="{ on }">
       <v-btn
-        class="ma-2"
+        class="ma-2 white"
         color="primary"
         href="/help"
         target="blank"
@@ -29,9 +29,3 @@
     </span>
   </v-tooltip>
 </template>
-
-<style>
-.ma-2 {
-  background-color: white;
-}
-</style>
