@@ -1,56 +1,54 @@
 <template>
   <div>
     <h1>ヘルプページ</h1>
-    <div id="QandA-1">
-      <h2 id="card1">Q&A</h2>
-      <v-card>
-        <a href="#card1" icon @click="show1 = !show1">
-          <v-card-title>
-            質問タイトル
-          </v-card-title>
-        </a>
-        <v-expand-transition>
-          <div v-show="show1">
-            <v-divider></v-divider>
-            <v-card-text>
-              回答内容
-            </v-card-text>
-          </div>
-        </v-expand-transition>
-      </v-card>
-      <p id="card2" class="card"></p>
-      <v-card>
-        <a href="#card2" icon @click="show2 = !show2">
-          <v-card-title>
-            質問タイトル
-          </v-card-title>
-        </a>
-        <v-expand-transition>
-          <div v-show="show2">
-            <v-divider></v-divider>
-            <v-card-text>
-              回答内容
-            </v-card-text>
-          </div>
-        </v-expand-transition>
-      </v-card>
-      <p id="card3" class="card"></p>
-      <v-card>
-        <a href="#card3" icon @click="show3 = !show3">
-          <v-card-title>
-            質問タイトル
-          </v-card-title>
-        </a>
-        <v-expand-transition>
-          <div v-show="show3">
-            <v-divider></v-divider>
-            <v-card-text>
-              回答内容
-            </v-card-text>
-          </div>
-        </v-expand-transition>
-      </v-card>
-    </div>
+    <h2 id="card1">Q&A</h2>
+    <v-card>
+      <a href="#card1" icon @click="show1 = !show1">
+        <v-card-title>
+          質問タイトル
+        </v-card-title>
+      </a>
+      <v-expand-transition>
+        <div v-show="show1">
+          <v-divider></v-divider>
+          <v-card-text>
+            回答内容
+          </v-card-text>
+        </div>
+      </v-expand-transition>
+    </v-card>
+    <p id="card2" class="card"></p>
+    <v-card>
+      <a href="#card2" icon @click="show2 = !show2">
+        <v-card-title>
+          質問タイトル
+        </v-card-title>
+      </a>
+      <v-expand-transition>
+        <div v-show="show2">
+          <v-divider></v-divider>
+          <v-card-text>
+            回答内容
+          </v-card-text>
+        </div>
+      </v-expand-transition>
+    </v-card>
+    <p id="card3" class="card"></p>
+    <v-card>
+      <a href="#card3" icon @click="show3 = !show3">
+        <v-card-title>
+          質問タイトル
+        </v-card-title>
+      </a>
+      <v-expand-transition>
+        <div v-show="show3">
+          <v-divider></v-divider>
+          <v-card-text>
+            回答内容
+          </v-card-text>
+        </div>
+      </v-expand-transition>
+    </v-card>
   </div>
 </template>
 <script>
