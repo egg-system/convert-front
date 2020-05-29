@@ -3,13 +3,13 @@
     <h1>ヘルプページ</h1>
     <h2 id="card1">Q&A</h2>
     <v-card>
-      <a href="#card1" icon @click="show1 = !show1">
+      <a href="#card1" icon @click="question1 = !question1">
         <v-card-title>
           質問タイトル
         </v-card-title>
       </a>
       <v-expand-transition>
-        <div v-show="show1">
+        <div v-show="question1">
           <v-divider></v-divider>
           <v-card-text>
             回答内容
@@ -19,13 +19,13 @@
     </v-card>
     <p id="card2" class="card"></p>
     <v-card>
-      <a href="#card2" icon @click="show2 = !show2">
+      <a href="#card2" icon @click="question2 = !question2">
         <v-card-title>
           質問タイトル
         </v-card-title>
       </a>
       <v-expand-transition>
-        <div v-show="show2">
+        <div v-show="question2">
           <v-divider></v-divider>
           <v-card-text>
             回答内容
@@ -35,13 +35,13 @@
     </v-card>
     <p id="card3" class="card"></p>
     <v-card>
-      <a href="#card3" icon @click="show3 = !show3">
+      <a href="#card3" icon @click="question3 = !question3">
         <v-card-title>
           質問タイトル
         </v-card-title>
       </a>
       <v-expand-transition>
-        <div v-show="show3">
+        <div v-show="question3">
           <v-divider></v-divider>
           <v-card-text>
             回答内容
@@ -54,9 +54,9 @@
 <script>
 export default {
   data: () => ({
-    show1: false,
-    show2: false,
-    show3: false
+    question1: false,
+    question2: false,
+    question3: false
   })
 }
 </script>
