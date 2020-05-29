@@ -11,14 +11,15 @@
       <v-btn
         class="ma-2"
         color="primary"
-        href="/convert-help"
+        href="/help"
         target="blank"
         fab
         small
+        outlined
         v-on="on"
       >
-        <v-icon dark>
-          mdi-help-circle-outline
+        <v-icon>
+          mdi-help
         </v-icon>
       </v-btn>
     </template>
@@ -28,3 +29,9 @@
     </span>
   </v-tooltip>
 </template>
+
+<style>
+.ma-2 {
+  background-color: white;
+}
+</style>

@@ -13,9 +13,9 @@
     </v-btn>
     <v-col class="text-right">
       <v-row align="center" justify="end">
-        <help-note />
         <release-note />
         <form-link />
+        <help-link />
       </v-row>
     </v-col>
   </v-app-bar>
@@ -24,10 +24,10 @@
 <script>
 import formLink from './header/form-link'
 import releaseNote from './header/release-note/release-note'
-import helpNote from './header/help-note'
+import helpLink from './header/help-link'
 
 export default {
-  components: { formLink, releaseNote, helpNote },
+  components: { formLink, releaseNote, helpLink },
   data() {
     return {
       imageSrc: require('@/assets/images/xface-logo-white.png')
