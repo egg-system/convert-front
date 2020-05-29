@@ -11,7 +11,7 @@
           <v-row>
             <v-text-field
               v-model="name"
-              label="変換後のCSVの列名を入力する"
+              label="変換し終わったCSVファイルの列名を入力する"
               :rules="[
                 (value) => !!value || '変換後の列名を入力してください。'
               ]"

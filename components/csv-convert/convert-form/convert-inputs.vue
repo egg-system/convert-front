@@ -6,7 +6,7 @@
         label="変換元データの取得元を選択する"
         width="100%"
       >
-        <v-radio :value="false" label="変換元CSVから値を取得する" />
+        <v-radio :value="false" label="変換したいCSVファイルから値を取得する" />
         <v-radio :value="true" label="固定の値にする" />
       </v-radio-group>
     </v-row>
