@@ -1,28 +1,29 @@
 <template>
   <div>
     <h1>ヘルプページ</h1>
-    <h2>操作方法</h2>
-    <help :qa="help" class="" />
-    <h2>Q&A</h2>
-    <help :qa="help" class="" />
+    <div class="title">
+      <h2>操作方法</h2>
+      <a href="#qa">QAはこちら</a>
+    </div>
+    <operation :operation="operation" class="" />
+    <h2 id="qa" class="title">Q&A</h2>
+    <qa :qa="qa" class="" />
   </div>
 </template>
 <script>
 import help from '../components/help/help'
 import qa from '../components/help/qa'
-import { operation } from '../components/help/operation'
+import operation from '../components/help/operation'
 
 export default {
   components: {
-    help
+    qa,
+    operation
   },
   data() {
     return {
-      question1: false,
-      question2: false,
-      question3: false,
-      help: qa.qa,
-      operation: operation.operation
+      qa: help.qa,
+      operation: help.operation
     }
   }
 }
@@ -32,7 +33,10 @@ export default {
 h1 {
   margin: 50px;
 }
-h2 {
+.title h2 {
+  display: inline;
+}
+.title {
   margin: 28px;
 }
 </style>

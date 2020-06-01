@@ -13,7 +13,7 @@
         <v-expand-transition>
           <div v-show="!help.qid">
             <v-divider></v-divider>
-            <v-card-text> {{ help.answer }}<br /> </v-card-text>
+            <v-card-text>{{ help.answer }}<br /> </v-card-text>
           </div>
         </v-expand-transition>
       </v-card>
@@ -27,19 +27,6 @@ export default {
     qa: {
       type: Array,
       default: null
-    },
-    operation: {
-      type: Array,
-      default: null
-    }
-  },
-  data() {
-    return {
-      question1: false,
-      question2: false,
-      question3: false,
-      question4: false,
-      question5: false
     }
   }
 }
