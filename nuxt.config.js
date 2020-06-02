@@ -82,6 +82,9 @@ export default {
       }
     }
   },
+  dotenv: {
+    only: ['API_URL', 'API_KEY']
+  },
   /*
    ** Build configuration
    */
