@@ -3,7 +3,8 @@ import { head } from './plugins/inject-nuxt-config.js'
 
 require('dotenv').config()
 
-const isProd = process.env.NODE_ENV === 'production'
+const nodeEnv = process.env.NODE_ENV || 'development'
+const envValues = require(`./configs/${nodeEnv}.js`).default
 
 export default {
   mode: 'universal',
@@ -19,10 +20,7 @@ export default {
    ** Global CSS
    */
   css: [],
-  env: {
-    API_URL: isProd ? process.env.PROD_API_URL : process.env.DEV_API_URL,
-    API_KEY: isProd ? process.env.PROD_API_KEY : process.env.DEV_API_KEY
-  },
+  env: envValues,
   /*
    ** Plugins to load before mounting the App
    */
@@ -53,7 +51,10 @@ export default {
     '@nuxtjs/pwa',
     [
       '@nuxtjs/google-tag-manager',
-      { id: process.env.GTM_ID, pageTracking: true }
+      {
+        id: nodeEnv === 'development' ? '' : process.env.GTM_ID,
+        pageTracking: true
+      }
     ]
   ],
   server: {
@@ -80,6 +81,9 @@ export default {
         }
       }
     }
+  },
+  dotenv: {
+    only: ['API_URL', 'API_KEY']
   },
   /*
    ** Build configuration
