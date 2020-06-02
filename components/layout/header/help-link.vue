@@ -9,16 +9,15 @@
   >
     <template v-slot:activator="{ on }">
       <v-btn
-        class="ma-2 white"
-        color="primary"
+        class="ma-2"
+        color="white"
         href="/help"
         target="blank"
         fab
         small
-        outlined
         v-on="on"
       >
-        <v-icon>
+        <v-icon color="primary">
           mdi-help
         </v-icon>
       </v-btn>

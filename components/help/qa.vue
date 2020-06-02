@@ -1,23 +1,23 @@
 <template>
   <div class="columns is-multiline">
-    <div v-for="(help, i) in qa" :key="i" class="column">
+    <section
+      v-for="(help, i) in qa"
+      :id="'question' + help.id"
+      :key="i"
+      class="column"
+    >
       <v-card>
-        <a
-          :id="'question' + help.id"
-          :href="'#question' + help.id"
-          icon
-          @click="help.qid = !help.qid"
-        >
+        <a :href="'#question' + help.id" icon @click="help.qid = !help.qid">
           <v-card-title> {{ help.question }}<br /> </v-card-title>
         </a>
         <v-expand-transition>
           <div v-show="!help.qid">
             <v-divider></v-divider>
-            <v-card-text>{{ help.answer }}<br /> </v-card-text>
+            <v-card-text class="answer" v-html="help.answer"> </v-card-text>
           </div>
         </v-expand-transition>
       </v-card>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -41,5 +41,12 @@ export default {
 a {
   text-decoration: none;
   color: black;
+}
+section:before {
+  padding-top: 64px;
+  margin-top: -64px;
+  visibility: hidden;
+  content: '';
+  display: block;
 }
 </style>
