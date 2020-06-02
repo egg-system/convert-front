@@ -1,6 +1,6 @@
 <template>
-  <div class="columns is-multiline">
-    <div v-for="(help, i) in operation" :key="i" class="column">
+  <div>
+    <div v-for="(help, i) in operation" :key="i">
       <v-card>
         <v-card-title> {{ help.procedure }}<br /> </v-card-title>
       </v-card>

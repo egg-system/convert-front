@@ -39,4 +39,11 @@ h1 {
 .title {
   margin: 28px;
 }
+h2:before {
+  padding-top: 64px;
+  margin-top: -64px;
+  visibility: hidden;
+  content: '';
+  display: block;
+}
 </style>

@@ -1,11 +1,6 @@
 <template>
-  <div class="columns is-multiline">
-    <section
-      v-for="(help, i) in qa"
-      :id="'question' + help.id"
-      :key="i"
-      class="column"
-    >
+  <div>
+    <section v-for="(help, i) in qa" :id="'question' + help.id" :key="i">
       <v-card>
         <a :href="'#question' + help.id" icon @click="help.qid = !help.qid">
           <v-card-title> {{ help.question }}<br /> </v-card-title>
@@ -13,7 +8,7 @@
         <v-expand-transition>
           <div v-show="!help.qid">
             <v-divider></v-divider>
-            <v-card-text class="answer" v-html="help.answer"> </v-card-text>
+            <v-card-text v-html="help.answer"> </v-card-text>
           </div>
         </v-expand-transition>
       </v-card>
