@@ -15,6 +15,7 @@
         >
           保存する
         </v-btn>
+        <preview-dialog />
       </v-container>
     </v-stepper-content>
   </v-container>
@@ -23,10 +24,11 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import convertTable from '../convert-table/convert-table.vue'
+import previewDialog from '../preview-dialog/preview-dialog.vue'
 import stepsMixins from './steps-mixins'
 
 export default {
-  components: { convertTable },
+  components: { convertTable, previewDialog },
   mixins: [stepsMixins],
   computed: {
     editable() {
@@ -39,7 +41,15 @@ export default {
   },
   methods: {
     async postSettings() {
-      await this.putSettingsFile()
+      try {
+        await this.putSettingsFile()
+      } catch (error) {
+        this.$root.context.error({
+          statusCode: error.response.status,
+          message: error.response.message
+        })
+      }
+
       this.pushStep(this.nextStep)
     },
     ...mapActions('csv', ['pushStep']),

@@ -47,7 +47,15 @@ export default {
   },
   methods: {
     async putCsvFile() {
-      await this.putFile(this.csv)
+      try {
+        await this.putFile(this.csv)
+      } catch (error) {
+        this.$root.context.error({
+          statusCode: error.response.status,
+          message: error.response.message
+        })
+      }
+
       this.pushStep(this.nextStep)
     },
     ...mapActions('csv', ['pushStep']),
