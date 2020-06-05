@@ -86,32 +86,23 @@ export const actions = {
   async getSettingsFile({ commit }, settingsKey) {
     commit('setSettingsKey', settingsKey)
 
-    try {
-      const { data } = await this.$axios.get('/files', {
-        params: { fileKey: settingsKey }
-      })
+    const { data } = await this.$axios.get('/files', {
+      params: { fileKey: settingsKey }
+    })
 
-      commit('setSettings', data)
-    } catch (apiError) {
-      if (apiError.response.status === 404) {
-        this.$router.push('/')
-      }
-    }
+    commit('setSettings', data)
   },
-  async putSettingsFile({ commit, getters, error }) {
+  async putSettingsFile({ commit, getters }) {
     const settingsKey = await generateHash(getters.settingFileContent)
     commit('setSettingsKey', settingsKey)
 
-    try {
-      await this.$axios.put('/files', {
-        fileKey: settingsKey,
-        file: getters.settingFileContent
-      })
-    } catch (apiError) {
-      error({
-        statusCode: apiError.response.status,
-        message: apiError.response.message
-      })
-    }
+    await this.$axios.put('/files', {
+      fileKey: settingsKey,
+      file: getters.settingFileContent
+    })
+  },
+  getPreview({ rootState }) {
+    const fileKey = rootState.file.fileKey
+    console.log(fileKey)
   }
 }

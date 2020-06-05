@@ -5,6 +5,14 @@ export const state = () => ({
 export const mutations = {
   setCurrentStep(state, step) {
     state.currentStep = step
+  },
+  resetCsv(state) {
+    state.file.fileKey = null
+    state.currentStep = 1
+  },
+  resetSettingFile(state) {
+    state.converter.settingsKey = null
+    state.currentStep = 2
   }
 }
 
