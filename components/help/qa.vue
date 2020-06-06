@@ -8,6 +8,8 @@
         <v-expand-transition>
           <div v-show="!help.qid">
             <v-divider></v-divider>
+            <!-- help.answerは固定値なので、問題なし -->
+            <!-- eslint-disable-next-line vue/no-v-html -->
             <v-card-text v-html="help.answer"> </v-card-text>
           </div>
         </v-expand-transition>
