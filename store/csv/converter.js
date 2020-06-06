@@ -100,9 +100,5 @@ export const actions = {
       fileKey: settingsKey,
       file: getters.settingFileContent
     })
-  },
-  getPreview({ rootState }) {
-    const fileKey = rootState.file.fileKey
-    console.log(fileKey)
   }
 }

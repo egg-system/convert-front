@@ -6,7 +6,7 @@ const handleAction = async (actionKey, payload = null) => {
   const { store, error } = getContext()
 
   try {
-    await store.dispatch(actionKey, payload)
+    return await store.dispatch(actionKey, payload)
   } catch (apiError) {
     error({
       statusCode: apiError.response.status,
@@ -24,5 +24,11 @@ export const putSettingsFile = async () => {
 }
 
 export const getPreview = async () => {
-  await handleAction('csv/getPreview')
+  const { data } = await handleAction('csv/convertCsv', 'UTF8')
+  const { $axios } = getContext()
+
+  const csv = await $axios.get('/files', {
+    params: { fileKey: data.fileKey }
+  })
+  return csv.data
 }
