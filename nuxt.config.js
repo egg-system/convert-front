@@ -25,7 +25,7 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    { src: '~/plugins/storage.js', mode: 'client' },
+    { src: '~/plugins/inject-storage.js', mode: 'client' },
     { src: '~/plugins/inject-axios-config.js', mode: 'client' },
     // APIを叩くため、inject-axios-configの後ろにする必要がある
     { src: '~/middleware/parse-csv-query.js', mode: 'client' }
