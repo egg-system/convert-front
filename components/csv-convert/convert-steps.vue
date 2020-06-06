@@ -1,9 +1,11 @@
 <template>
-  <v-stepper v-model="step" vertival>
-    <select-csv step="1" />
-    <convert-csv step="2" />
-    <download-csv step="3" />
-  </v-stepper>
+  <client-only>
+    <v-stepper v-model="step" vertival>
+      <select-csv step="1" />
+      <convert-csv step="2" />
+      <download-csv step="3" />
+    </v-stepper>
+  </client-only>
 </template>
 
 <script>
