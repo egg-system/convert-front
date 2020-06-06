@@ -36,17 +36,10 @@ export const actions = {
   async getFile({ state, commit }, fileKey) {
     commit('setFileKey', fileKey)
 
-    try {
-      const { data } = await this.$axios.get('/files', {
-        params: { fileKey: state.fileKey }
-      })
-      commit('setContent', data)
-    } catch (apiError) {
-      if (apiError.response.status === 404) {
-        commit('setFileKey', null)
-        this.$router.push('/')
-      }
-    }
+    const { data } = await this.$axios.get('/files', {
+      params: { fileKey: state.fileKey }
+    })
+    commit('setContent', data)
   },
   async putFile({ commit, dispatch }, file) {
     commit('setFile', file)
@@ -59,15 +52,8 @@ export const actions = {
     formData.append('fileKey', fileKey)
     await dispatch('doPutFile', formData)
   },
-  async doPutFile({ state, error, dispatch }, formData) {
-    try {
-      await this.$axios.put('/files', formData)
-      await dispatch('getFile', state.fileKey)
-    } catch (apiError) {
-      error({
-        statusCode: apiError.response.status,
-        message: apiError.response.message
-      })
-    }
+  async doPutFile({ state, dispatch }, formData) {
+    await this.$axios.put('/files', formData)
+    await dispatch('getFile', state.fileKey)
   }
 }

@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import stepsMixins from './steps-mixins'
 
 export default {
@@ -52,18 +52,13 @@ export default {
     editable() {
       const query = this.$route.query
       return 'csv' in query && 'settings' in query
-    },
-    convertUrl() {
-      return `/convert-csv?csv=${this.fileKey}&settings=${this.settingsKey}&encode=${this.encode}`
-    },
-    ...mapState('csv/file', ['fileKey']),
-    ...mapState('csv/converter', ['settingsKey'])
+    }
   },
   methods: {
     async doConvert() {
       this.loading = true
 
-      const { data } = await this.$axios.get(this.convertUrl)
+      const { data } = await this.convertCsv(this.encode)
       this.downloadUrl = data.url
 
       this.$nextTick(() => {
@@ -71,7 +66,8 @@ export default {
         this.$refs.download.click()
         this.loading = false
       })
-    }
+    },
+    ...mapActions('csv', ['convertCsv'])
   }
 }
 </script>
