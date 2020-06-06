@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-container class="ml-3">
-      <v-row class="font-weight-bold subtitle-1">
+      <v-row class="my-3 font-weight-bold subtitle-1">
         オンラインで完結、無料の簡単CSV変換サービス
       </v-row>
       <v-row class="subtitle-2">
