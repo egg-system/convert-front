@@ -32,6 +32,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { putFile } from '../convert-actions'
 import stepsMixins from './steps-mixins'
 
 export default {
@@ -47,15 +48,7 @@ export default {
   },
   methods: {
     async putCsvFile() {
-      try {
-        await this.putFile(this.csv)
-      } catch (error) {
-        this.$root.context.error({
-          statusCode: error.response.status,
-          message: error.response.message
-        })
-      }
-
+      await putFile(this.csv)
       this.pushStep(this.nextStep)
     },
     ...mapActions('csv', ['pushStep']),

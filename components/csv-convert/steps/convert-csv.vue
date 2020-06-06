@@ -23,8 +23,9 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { putSettingsFile } from '../convert-actions'
 import convertTable from '../convert-table/convert-table.vue'
-import previewDialog from '../preview-dialog/preview-dialog.vue'
+import previewDialog from '../preview-table/preview-dialog.vue'
 import stepsMixins from './steps-mixins'
 
 export default {
@@ -41,19 +42,10 @@ export default {
   },
   methods: {
     async postSettings() {
-      try {
-        await this.putSettingsFile()
-      } catch (error) {
-        this.$root.context.error({
-          statusCode: error.response.status,
-          message: error.response.message
-        })
-      }
-
+      await putSettingsFile()
       this.pushStep(this.nextStep)
     },
-    ...mapActions('csv', ['pushStep']),
-    ...mapActions('csv/converter', ['putSettingsFile'])
+    ...mapActions('csv', ['pushStep'])
   }
 }
 </script>
