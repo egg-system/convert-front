@@ -1,5 +1,8 @@
 export const headers = [
   {
+    value: 'state'
+  },
+  {
     text: '列番号',
     value: 'id'
   },
@@ -9,7 +12,7 @@ export const headers = [
   },
   {
     text: '変換内容',
-    value: 'description'
+    value: 'convert'
   },
   {
     text: 'アクション',
