@@ -3,16 +3,12 @@
     <template #activator="{ on }">
       <a v-on="on">{{ isValid ? '設定済み' : '未設定' }}</a>
     </template>
-    <convert-form
-      v-if="convertSetting"
-      v-model="convertSetting"
-      @cancel="isShown = false"
-    />
+    <convert-form v-model="editConvertSetting" @cancel="isShown = false" />
   </v-dialog>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import convertForm from '../../convert-form/convert-form'
 
 export default {
@@ -25,10 +21,22 @@ export default {
   },
   data: () => ({ isShown: false }),
   computed: {
+    editConvertSetting: {
+      get() {
+        return this.convertSetting
+      },
+      set(editConvertSetting) {
+        this.updateSetting(editConvertSetting)
+        this.isShown = false
+      }
+    },
     isValid() {
       return this.validateConvert(this.convertSetting)
     },
     ...mapGetters('csv/converter', ['validateConvert'])
+  },
+  methods: {
+    ...mapMutations('csv/converter', ['updateSetting'])
   }
 }
 </script>
