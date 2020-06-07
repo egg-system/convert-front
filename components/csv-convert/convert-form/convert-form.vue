@@ -4,7 +4,7 @@
       <v-container>
         <v-row>
           <v-card-title>
-            {{ doUpdate ? 'CSV設定の更新' : 'CSV設定の登録' }}
+            変換し終わったCSVの変換内容を設定する
           </v-card-title>
         </v-row>
         <v-card-text>

@@ -3,7 +3,7 @@
     <v-row>
       <v-radio-group
         v-model="isFixedValue"
-        label="変換元データの取得元を選択する"
+        label="変換し終わったCSVデータの取得元を選択する"
         width="100%"
       >
         <v-radio :value="false" label="変換したいCSVファイルから値を取得する" />
