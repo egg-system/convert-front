@@ -10,7 +10,7 @@
           id="btn-save-convert-config"
           class="ma-5"
           color="primary"
-          :disabled="disabled"
+          :disabled="!isValidSettings"
           @click="postSettings"
         >
           保存する
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 import { putSettingsFile } from '../convert-actions'
 import convertTable from '../convert-table/convert-table.vue'
 import previewDialog from '../preview-table/preview-dialog.vue'
@@ -35,10 +35,8 @@ export default {
     editable() {
       return 'csv' in this.$route.query
     },
-    disabled() {
-      return this.settings.length === 0
-    },
-    ...mapState('csv/converter', ['settings'])
+    ...mapState('csv/converter', ['settings']),
+    ...mapGetters('csv/converter', ['isValidSettings'])
   },
   methods: {
     async postSettings() {
