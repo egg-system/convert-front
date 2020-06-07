@@ -1,5 +1,8 @@
 <template>
   <v-container>
+    <v-container>
+      <twitter-follow-btn />
+    </v-container>
     <v-container class="ml-3">
       <v-row class="font-weight-bold subtitle-1">
         オンラインで完結、無料の簡単CSV変換サービス
@@ -25,9 +28,10 @@
 
 <script>
 import convertSteps from '@/components/csv-convert/convert-steps.vue'
+import twitterFollowBtn from '@/components/ui/twitter-follow-btn.vue'
 
 export default {
-  components: { convertSteps },
+  components: { convertSteps, twitterFollowBtn },
   middleware: ['parse-csv-query'],
   head() {
     return { title: 'CSV変換サービス' }
