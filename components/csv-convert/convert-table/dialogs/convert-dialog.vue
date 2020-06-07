@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="isShown" persistent>
     <template #activator="{ on }">
-      <a v-on="on">{{ validate ? '設定済み' : '未設定' }}</a>
+      <a v-on="on">{{ isValid ? '設定済み' : '未設定' }}</a>
     </template>
     <convert-form
       v-if="convertSetting"
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { validateConvert } from '../validate-convert-setting'
+import { mapGetters } from 'vuex'
 import convertForm from '../../convert-form/convert-form'
 
 export default {
@@ -26,8 +26,9 @@ export default {
   data: () => ({ isShown: false }),
   computed: {
     isValid() {
-      return validateConvert(this.convertSetting)
-    }
+      return this.validateConvert(this.convertSetting)
+    },
+    ...mapGetters('csv/converter', ['validateConvert'])
   }
 }
 </script>
