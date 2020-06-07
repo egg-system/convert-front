@@ -11,34 +11,47 @@
       <v-toolbar flat color="white">
         <v-toolbar-title>CSV変換設定</v-toolbar-title>
         <v-spacer />
-        <convert-dialog />
       </v-toolbar>
+    </template>
+    <template #item.state="{ item }">
+      <v-icon :color="validate(item) ? 'green' : 'red'">
+        {{ validate(item) ? 'mdi-check' : 'mdi-alert' }}
+      </v-icon>
     </template>
     <template #item.id="{ item }">
       {{ item.index + 1 }}
     </template>
-    <template #item.description="{ item }">
-      {{ getDescription(item) }}
+    <template #item.name="{ item }">
+      <name-dialog :index="item.index" />
+    </template>
+    <template #item.convert="{ item }">
+      <convert-dialog :convert-setting="item" />
     </template>
     <template #item.action="{ item }">
-      <v-row justify="space-around">
-        <convert-dialog :setting-index="item.index" />
-        <v-icon @click="confirmDelete(item.index)">mdi-delete</v-icon>
-      </v-row>
-    </template>
-    <template #no-data>
-      CSVの変換設定を登録してください。
+      <v-icon class="ma-1" color="primary" @click="addSetting(item.index + 1)">
+        mdi-plus-circle-outline
+      </v-icon>
+      <v-icon
+        v-if="settings.length > 1"
+        class="ma-1"
+        color="red"
+        @click="deleteSetting(item.index)"
+      >
+        mdi-minus-circle-outline
+      </v-icon>
     </template>
   </v-data-table>
 </template>
 
 <script>
-import { mapGetters, mapState, mapMutations } from 'vuex'
-import convertDialog from './convert-dialog'
+import { mapState, mapMutations } from 'vuex'
 import { headers, converters } from './convert-table'
+import { validate } from './validate-convert-setting'
+import nameDialog from './dialogs/name-dialog.vue'
+import convertDialog from './dialogs/convert-dialog.vue'
 
 export default {
-  components: { convertDialog },
+  components: { nameDialog, convertDialog },
   computed: {
     tableHeaders() {
       return headers
@@ -46,19 +59,13 @@ export default {
     converters() {
       return converters
     },
-    ...mapState('csv/converter', ['settings']),
-    ...mapGetters('csv/converter', ['getDescription']),
-    ...mapGetters('csv/file', ['csvHeader'])
+    ...mapState('csv/converter', ['settings'])
   },
   methods: {
-    confirmDelete(index) {
-      if (!window.confirm('本当に削除しても、よろしいでしょうか？')) {
-        return
-      }
-
-      this.deleteSetting(index)
+    validate(convertSetting) {
+      return validate(convertSetting)
     },
-    ...mapMutations('csv/converter', ['deleteSetting'])
+    ...mapMutations('csv/converter', ['addSetting', 'deleteSetting'])
   }
 }
 </script>
