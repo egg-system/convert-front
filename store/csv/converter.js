@@ -67,7 +67,7 @@ export const getters = {
       if (getters.getCsvColumnName(convertSetting.fromIndex)) {
         const columnName = getters.getCsvColumnName(convertSetting.fromIndex)
         const displayFromIndex = convertSetting.fromIndex + 1
-        return `変換元CSVの${displayFromIndex}列目「${columnName}」からデータを取得する`
+        return `変換したいCSVファイルの${displayFromIndex}列目「${columnName}」からデータを取得する`
       }
 
       return null
@@ -86,32 +86,19 @@ export const actions = {
   async getSettingsFile({ commit }, settingsKey) {
     commit('setSettingsKey', settingsKey)
 
-    try {
-      const { data } = await this.$axios.get('/files', {
-        params: { fileKey: settingsKey }
-      })
+    const { data } = await this.$axios.get('/files', {
+      params: { fileKey: settingsKey }
+    })
 
-      commit('setSettings', data)
-    } catch (apiError) {
-      if (apiError.response.status === 404) {
-        this.$router.push('/')
-      }
-    }
+    commit('setSettings', data)
   },
-  async putSettingsFile({ commit, getters, error }) {
+  async putSettingsFile({ commit, getters }) {
     const settingsKey = await generateHash(getters.settingFileContent)
     commit('setSettingsKey', settingsKey)
 
-    try {
-      await this.$axios.put('/files', {
-        fileKey: settingsKey,
-        file: getters.settingFileContent
-      })
-    } catch (apiError) {
-      error({
-        statusCode: apiError.response.status,
-        message: apiError.response.message
-      })
-    }
+    await this.$axios.put('/files', {
+      fileKey: settingsKey,
+      file: getters.settingFileContent
+    })
   }
 }

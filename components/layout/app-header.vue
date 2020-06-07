@@ -1,6 +1,6 @@
 <template>
   <v-app-bar fixed app dark flat>
-    <v-btn href="https://convert-service.x-face.net/" depressed>
+    <v-btn href="/" depressed>
       <v-img
         :src="imageSrc"
         class="mr-5"

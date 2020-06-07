@@ -5,6 +5,14 @@ export const state = () => ({
 export const mutations = {
   setCurrentStep(state, step) {
     state.currentStep = step
+  },
+  resetCsv(state) {
+    state.file.fileKey = null
+    state.currentStep = 1
+  },
+  resetSettingFile(state) {
+    state.converter.settingsKey = null
+    state.currentStep = 2
   }
 }
 
@@ -30,6 +38,14 @@ export const actions = {
     this.$router.push({
       path: '/',
       query: getters.convertQuery
+    })
+  },
+  async convertCsv({ state }, encode) {
+    const csv = state.file.fileKey
+    const settings = state.converter.settingsKey
+
+    return await this.$axios.get('/convert-csv', {
+      params: { csv, settings, encode }
     })
   }
 }

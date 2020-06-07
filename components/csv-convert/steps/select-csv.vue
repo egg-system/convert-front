@@ -1,14 +1,14 @@
 <template>
   <v-container>
     <v-stepper-step :step="step" editable>
-      変換元CSVの選択
+      変換したいCSVファイルの選択
     </v-stepper-step>
     <v-stepper-content :step="step">
       <v-container>
         <v-row>
           <v-file-input
             v-model="csv"
-            label="変換元CSVを選択する"
+            label="変換したいCSVファイルを選択する"
             accept=".csv"
             single-line
             show-size
@@ -16,6 +16,7 @@
         </v-row>
         <v-row>
           <v-btn
+            id="btn-upload-csv"
             class="ma-5"
             color="primary"
             :disabled="!selected"
@@ -31,6 +32,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { putFile } from '../convert-actions'
 import stepsMixins from './steps-mixins'
 
 export default {
@@ -46,7 +48,7 @@ export default {
   },
   methods: {
     async putCsvFile() {
-      await this.putFile(this.csv)
+      await putFile(this.csv)
       this.pushStep(this.nextStep)
     },
     ...mapActions('csv', ['pushStep']),
