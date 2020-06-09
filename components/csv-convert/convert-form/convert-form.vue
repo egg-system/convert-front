@@ -45,6 +45,9 @@ export default {
       deep: true
     }
   },
+  created() {
+    this.initialize()
+  },
   methods: {
     initialize() {
       this.convertSetting = this.value
@@ -58,9 +61,6 @@ export default {
     update() {
       this.$emit('input', this.convertSetting)
     }
-  },
-  created() {
-    this.initialize()
   }
 }
 </script>
