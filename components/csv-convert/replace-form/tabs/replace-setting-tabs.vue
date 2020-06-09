@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div class="replace-setting-tab">
     <v-row v-if="errorMessage">
       <v-alert type="error">{{ errorMessage }}</v-alert>
     </v-row>
@@ -13,7 +13,7 @@
         <component :is="inputTabItem.component" v-model="replaceValues" />
       </v-tab-item>
     </v-tabs-items>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -51,3 +51,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.replace-setting-tab {
+  width: 100%;
+}
+</style>
