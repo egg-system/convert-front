@@ -19,11 +19,6 @@ export const state = () => ({
 })
 
 export const mutations = {
-  addReplace(state, replaceSetting) {
-    const replaces = { ...state.replaces }
-    replaces[replaceSetting.name] = replaceSetting.value
-    state.replaces = replaces
-  },
   addSetting(state, newIndex) {
     const convertSettings = state.settings.concat()
     convertSettings.splice(newIndex, 0, {
@@ -46,7 +41,12 @@ export const mutations = {
       return setting
     })
   },
-  deleteReplace(state, replaceKey) {
+  updateReplace(state, replaceSetting) {
+    const replaces = { ...state.replaces }
+    replaces[replaceSetting.name] = replaceSetting.value
+    state.replaces = replaces
+  },
+  removeReplace(state, replaceKey) {
     const replaces = { ...state.replaces }
     delete replaces[replaceKey]
     state.replaces = replaces
