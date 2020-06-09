@@ -6,44 +6,61 @@
         <v-radio :value="true" label="コード変換を設定する" />
       </v-radio-group>
     </v-row>
-    <replace-setting-input v-if="doReplace" v-model="convertSetting" />
+    <replace-setting-Form v-if="doReplace" v-model="replaceSetting" />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import convertFormMixins from '../mixins/convert-form-mixins'
-import replaceSettingInput from './replace/replace-setting-input.vue'
+import replaceSettingForm from './replace/replace-setting-form.vue'
 
 export default {
-  components: { replaceSettingInput },
+  components: { replaceSettingForm },
   mixins: [convertFormMixins],
-  data: () => ({
-    doReplace: false
-  }),
   computed: {
-    ...mapState('csv/converter', ['replaces'])
-  },
-  watch: {
-    doReplace() {
-      if (!this.doReplace) {
+    doReplace: {
+      get() {
+        return this.replaceKey in this.replaces
+      },
+      set(doReplace) {
+        doReplace ? this.initilizeReplace() : this.doRemove()
         this.convertSetting = {
           ...this.convertSetting,
-          replaceKey: null
+          replaceKey: doReplace ? this.replaceKey : null
         }
       }
-    }
-  },
-  created() {
-    const replaceKey = this.convertSetting.replaceKey
-    if (!Object.keys(this.replaces).includes(replaceKey)) {
-      this.convertSetting = {
-        ...this.convertSetting,
-        replaceKey: null
+    },
+    replaceSetting: {
+      get() {
+        if (this.doReplace) {
+          return this.replaces[this.replaceKey]
+        }
+        return null
+      },
+      set(replaceSetting) {
+        this.updateReplace({
+          name: this.replaceKey,
+          value: replaceSetting
+        })
       }
-    }
-
-    this.doReplace = !!this.convertSetting.replaceKey
+    },
+    replaceKey() {
+      return `列${this.convertSetting.index + 1}の変換設定`
+    },
+    ...mapState('csv/converter', ['replaces'])
+  },
+  methods: {
+    initilizeReplace() {
+      this.updateReplace({
+        name: this.replaceKey,
+        value: [{ from: null, to: null }]
+      })
+    },
+    doRemove() {
+      this.removeReplace(this.replaceKey)
+    },
+    ...mapMutations('csv/converter', ['updateReplace', 'removeReplace'])
   }
 }
 </script>
