@@ -35,7 +35,7 @@
         v-if="settings.length > 1"
         class="ma-1"
         color="red"
-        @click="deleteSetting(item.index)"
+        @click="doDeleteSetting(item)"
       >
         mdi-minus-circle-outline
       </v-icon>
@@ -62,6 +62,15 @@ export default {
     ...mapGetters('csv/converter', ['validateSetting'])
   },
   methods: {
+    doDeleteSetting(convertSetting) {
+      const doDelete =
+        !this.validateSetting(convertSetting) ||
+        window.confirm('変換設定を削除します。よろしいでしょうか？')
+
+      if (doDelete) {
+        this.deleteSetting(convertSetting.index)
+      }
+    },
     validate(convertSetting) {
       return this.validateSetting(convertSetting)
     },

@@ -70,7 +70,7 @@ export const getters = {
   },
   validateConvert() {
     return (convertSetting) => {
-      return convertSetting.fromIndex || convertSetting.fixedValue
+      return convertSetting.fromIndex !== null || convertSetting.fixedValue
     }
   },
   validateSetting(state, getters) {
