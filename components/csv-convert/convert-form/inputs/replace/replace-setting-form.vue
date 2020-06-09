@@ -1,0 +1,47 @@
+<template>
+  <replace-setting-tabs
+    v-model="replaceSetting"
+    :error-message="errorMessage"
+  />
+</template>
+
+<script>
+import replaceSettingTabs from './tabs/replace-setting-tabs'
+
+export default {
+  components: { replaceSettingTabs },
+  props: {
+    value: {
+      type: Array,
+      required: true
+    }
+  },
+  data: () => ({
+    isFormValid: false,
+    errorMessage: ''
+  }),
+  computed: {
+    replaceSetting: {
+      get() {
+        return this.value
+      },
+      set(replaceSetting) {
+        this.$emit('input', replaceSetting)
+      }
+    }
+  },
+  methods: {
+    validation() {
+      this.errorMessage = ''
+
+      const isValidReplaces = this.value.value.every((value) => {
+        return value.from && value.to
+      })
+
+      if (!isValidReplaces) {
+        this.errorMessage = '未入力のコード変換設定があります'
+      }
+    }
+  }
+}
+</script>
