@@ -14,8 +14,7 @@ export const state = () => ({
       index: 0
     }
   ],
-  settingsKey: null,
-  replaces: {}
+  settingsKey: null
 })
 
 export const mutations = {
@@ -41,29 +40,22 @@ export const mutations = {
       return setting
     })
   },
-  updateReplace(state, replaceSetting) {
-    const replaces = { ...state.replaces }
-    replaces[replaceSetting.name] = replaceSetting.value
-    state.replaces = replaces
-  },
-  removeReplace(state, replaceKey) {
-    const replaces = { ...state.replaces }
-    delete replaces[replaceKey]
-    state.replaces = replaces
-  },
   setSettingsKey(state, key) {
     state.settingsKey = key
   },
   setSettings(state, { convertSettings, replaceSettings }) {
     state.settings = convertSettings
-    state.replaces = replaceSettings
+    state.replacer.replaceSettings = replaceSettings
   }
 }
 
 export const getters = {
+  defaultConvertSettings() {
+    return defaultConvertSettings
+  },
   settingFileContent(state, getters, rootState, rootGetters) {
     return JSON.stringify({
-      replaceSettings: state.replaces,
+      replaceSettings: state.replacer.replaceSettings,
       convertSettings: state.settings,
       csvHeaders: rootGetters['csv/file/csvHeaders']
     })

@@ -5,7 +5,11 @@ export default ({ store }) => {
     injectStorageState({
       storage: window.sessionStorage,
       key: 'csv',
-      paths: ['csv.converter.settings', 'csv.converter.replaces', 'csv.fileKey']
+      paths: [
+        'csv.converter.settings',
+        'csv.converter.replacer.replaceSettings',
+        'csv.fileKey'
+      ]
     })(store)
   })
 }
