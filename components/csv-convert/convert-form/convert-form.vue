@@ -7,9 +7,10 @@
             変換し終わったCSVの変換内容を設定する
           </v-card-title>
         </v-row>
-        <v-card-text>
-          <convert-inputs v-model="convertSetting" />
-        </v-card-text>
+        <convert-value-inputs
+          :edit-convert-setting.sync="convertSetting"
+          :edit-replace-settings.sync="editReplaceSettings"
+        />
         <convert-form-actions
           :is-valid="isValid"
           @validate="validate"
@@ -22,11 +23,12 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import convertFormActions from './convert-form-actions'
-import convertInputs from './convert-inputs.vue'
+import convertValueInputs from './convert-value-inputs.vue'
 
 export default {
-  components: { convertInputs, convertFormActions },
+  components: { convertFormActions, convertValueInputs },
   props: {
     value: {
       type: Object,
@@ -35,8 +37,12 @@ export default {
   },
   data: () => ({
     isValid: false,
-    convertSetting: null
+    convertSetting: null,
+    editReplaceSettings: null
   }),
+  computed: {
+    ...mapState('csv/converter/replacer', ['replaceSettings'])
+  },
   watch: {
     value: {
       handler() {
@@ -50,9 +56,11 @@ export default {
   },
   methods: {
     initialize() {
-      this.convertSetting = this.value
+      this.convertSetting = { ...this.value }
+      this.editReplaceSettings = { ...this.replaceSettings }
     },
     cancel() {
+      this.initialize()
       this.$emit('cancel')
     },
     validate() {
@@ -60,7 +68,9 @@ export default {
     },
     update() {
       this.$emit('input', this.convertSetting)
-    }
+      this.updateReplaces(this.editReplaceSettings)
+    },
+    ...mapMutations('csv/converter/replacer', ['updateReplaces'])
   }
 }
 </script>
