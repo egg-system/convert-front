@@ -3,7 +3,11 @@
     <template #activator="{ on }">
       <a v-on="on">{{ isValid ? '設定済み' : '未設定' }}</a>
     </template>
-    <convert-form v-model="editConvertSetting" @cancel="isShown = false" />
+    <convert-form
+      v-if="isShown"
+      v-model="editConvertSetting"
+      @cancel="isShown = false"
+    />
   </v-dialog>
 </template>
 
