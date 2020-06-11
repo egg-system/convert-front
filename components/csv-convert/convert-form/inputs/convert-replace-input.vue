@@ -1,27 +1,24 @@
 <template>
-  <div>
-    <v-row>
-      <v-radio-group v-model="doReplace" label="コード変換の設定" width="100%">
-        <v-radio :value="false" label="コード変換を設定しない" />
-        <v-radio :value="true" label="コード変換を設定する" />
-      </v-radio-group>
-    </v-row>
-    <replace-setting-Form v-if="doReplace" v-model="replaceSetting" />
-  </div>
+  <v-row>
+    <v-radio-group v-model="doReplace" label="コード変換の設定" width="100%">
+      <v-radio :value="false" label="コード変換を設定しない" />
+      <v-radio :value="true" label="コード変換を設定する" />
+    </v-radio-group>
+    <replace-setting-form v-if="doReplace" v-model="replaceSetting" />
+  </v-row>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
-import convertFormMixins from '../mixins/convert-form-mixins'
-import replaceSettingForm from './replace/replace-setting-form.vue'
+import replaceSettingForm from '../../replace-form/replace-setting-form.vue'
+import convertReplaceInputMixin from './mixins/convert-replace-input-mixin'
 
 export default {
   components: { replaceSettingForm },
-  mixins: [convertFormMixins],
+  mixins: [convertReplaceInputMixin],
   computed: {
     doReplace: {
       get() {
-        return this.replaceKey in this.replaces
+        return this.replaceKey in this.replaceSettings
       },
       set(doReplace) {
         doReplace ? this.initilizeReplace() : this.doRemove()
@@ -34,33 +31,30 @@ export default {
     replaceSetting: {
       get() {
         if (this.doReplace) {
-          return this.replaces[this.replaceKey]
+          return this.replaceSettings[this.replaceKey]
         }
         return null
       },
       set(replaceSetting) {
-        this.updateReplace({
-          name: this.replaceKey,
-          value: replaceSetting
-        })
+        const replaceSettings = { ...this.replaceSettings }
+        replaceSettings[this.replaceKey] = replaceSetting
+        this.replaceSettings = replaceSettings
       }
     },
     replaceKey() {
-      return `列${this.convertSetting.index + 1}の変換設定`
-    },
-    ...mapState('csv/converter', ['replaces'])
+      const replaceKeyIndex = this.convertSetting.index + 1
+      return `列${replaceKeyIndex}の変換設定`
+    }
   },
   methods: {
     initilizeReplace() {
-      this.updateReplace({
-        name: this.replaceKey,
-        value: [{ from: null, to: null }]
-      })
+      this.replaceSetting = [{ from: null, to: null }]
     },
     doRemove() {
-      this.removeReplace(this.replaceKey)
-    },
-    ...mapMutations('csv/converter', ['updateReplace', 'removeReplace'])
+      const replaceSettings = { ...this.replaceSettings }
+      delete replaceSettings[this.replaceKey]
+      this.replaceSettings = replaceSettings
+    }
   }
 }
 </script>
