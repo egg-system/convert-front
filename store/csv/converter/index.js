@@ -60,23 +60,6 @@ export const getters = {
       csvHeaders: rootGetters['csv/file/csvHeaders']
     })
   },
-  validateConvert() {
-    return (convertSetting) => {
-      return convertSetting.fromIndex !== null || convertSetting.fixedValue
-    }
-  },
-  validateSetting(state, getters) {
-    return (convertSetting) => {
-      if (!convertSetting.name) {
-        return false
-      }
-
-      return getters.validateConvert(convertSetting)
-    }
-  },
-  isValidSettings(state, getters) {
-    return state.settings.every((setting) => getters.validateSetting(setting))
-  },
   replaceKeys(state) {
     const replaceKeys = state.settings.map((setting) => setting.replaceKey)
     return Array.from(new Set(replaceKeys))

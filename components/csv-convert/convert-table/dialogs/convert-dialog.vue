@@ -35,9 +35,9 @@ export default {
       }
     },
     isValid() {
-      return this.validateConvert(this.convertSetting)
+      return this.isValidConvert(this.convertSetting)
     },
-    ...mapGetters('csv/converter', ['validateConvert'])
+    ...mapGetters('csv/converter/validator', ['isValidConvert'])
   },
   methods: {
     ...mapMutations('csv/converter', ['updateSetting'])

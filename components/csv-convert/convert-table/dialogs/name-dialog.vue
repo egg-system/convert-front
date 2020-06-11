@@ -8,7 +8,7 @@
   >
     <v-icon disabled>mdi-pencil-outline</v-icon>
     <span :class="settingName ? '' : 'text--secondary'">
-      {{ settingName ? settingName : '(クリックすると、データを入力できます)' }}
+      {{ settingName ? settingName : '(クリックすると、列名を入力できます)' }}
     </span>
     <template v-slot:input>
       <v-text-field v-model="settingName" single-line />

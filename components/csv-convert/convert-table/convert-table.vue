@@ -11,12 +11,11 @@
       <v-toolbar flat color="white">
         <v-toolbar-title>CSV変換設定</v-toolbar-title>
         <v-spacer />
+        <settings-dialog />
       </v-toolbar>
     </template>
     <template #item.state="{ item }">
-      <v-icon :color="validate(item) ? 'green' : 'red'">
-        {{ validate(item) ? 'mdi-check' : 'mdi-alert' }}
-      </v-icon>
+      <convert-row-status :convert-setting="item" />
     </template>
     <template #item.id="{ item }">
       {{ item.index + 1 }}
@@ -44,13 +43,20 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import { headers, converters } from './convert-table'
 import nameDialog from './dialogs/name-dialog.vue'
 import convertDialog from './dialogs/convert-dialog.vue'
+import convertRowStatus from './convert-row-status.vue'
+import settingsDialog from './dialogs/settings-dialog'
 
 export default {
-  components: { nameDialog, convertDialog },
+  components: {
+    nameDialog,
+    convertDialog,
+    convertRowStatus,
+    settingsDialog
+  },
   computed: {
     tableHeaders() {
       return headers
@@ -59,20 +65,17 @@ export default {
       return converters
     },
     ...mapState('csv/converter', ['settings']),
-    ...mapGetters('csv/converter', ['validateSetting'])
+    ...mapGetters('csv/converter/validator', ['isEmptySetting'])
   },
   methods: {
     doDeleteSetting(convertSetting) {
-      const doDelete =
-        !this.validateSetting(convertSetting) ||
+      const shouldDelete =
+        this.isEmptySetting(convertSetting) ||
         window.confirm('変換設定を削除します。よろしいでしょうか？')
 
-      if (doDelete) {
+      if (shouldDelete) {
         this.deleteSetting(convertSetting.index)
       }
-    },
-    validate(convertSetting) {
-      return this.validateSetting(convertSetting)
     },
     ...mapActions('csv/converter', ['deleteSetting']),
     ...mapMutations('csv/converter', ['addSetting'])
