@@ -1,8 +1,5 @@
 <template>
-  <replace-setting-tabs
-    v-model="replaceSetting"
-    :error-message="errorMessage"
-  />
+  <replace-setting-tabs v-model="replaceSetting" />
 </template>
 
 <script>
@@ -27,19 +24,6 @@ export default {
       },
       set(replaceSetting) {
         this.$emit('input', replaceSetting)
-      }
-    }
-  },
-  methods: {
-    validation() {
-      this.errorMessage = ''
-
-      const isValidReplaces = this.value.value.every((value) => {
-        return value.from && value.to
-      })
-
-      if (!isValidReplaces) {
-        this.errorMessage = '未入力のコード変換設定があります'
       }
     }
   }

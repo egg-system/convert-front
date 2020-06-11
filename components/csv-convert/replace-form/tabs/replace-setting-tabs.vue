@@ -1,8 +1,5 @@
 <template>
   <div class="replace-setting-tab">
-    <v-row v-if="errorMessage">
-      <v-alert type="error">{{ errorMessage }}</v-alert>
-    </v-row>
     <v-tabs v-model="inputTab">
       <v-tab v-for="(inputTabItem, index) in inputTabItems" :key="index">
         {{ inputTabItem.name }}
@@ -26,10 +23,6 @@ export default {
   props: {
     value: {
       type: Array,
-      required: true
-    },
-    errorMessage: {
-      type: null,
       required: true
     }
   },
