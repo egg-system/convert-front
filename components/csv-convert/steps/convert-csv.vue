@@ -41,7 +41,7 @@ export default {
       return 'csv' in this.$route.query
     },
     ...mapState('csv/converter', ['settings']),
-    ...mapGetters('csv/converter', ['isValidSettings'])
+    ...mapGetters('csv/converter/validator', ['isValidSettings'])
   },
   methods: {
     validate() {
@@ -50,7 +50,7 @@ export default {
     async postSettings() {
       this.validate()
       if (this.isValid) {
-        await this.doPostSettings
+        await this.doPostSettings()
       }
     },
     async doPostSettings() {
