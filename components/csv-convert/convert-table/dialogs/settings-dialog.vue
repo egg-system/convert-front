@@ -8,14 +8,20 @@
     <v-card>
       <v-container>
         <v-row>
-          <v-card-title>保存した変換設定を読み込む</v-card-title>
-          <v-card-text>
-            ※ 変換設定は「保存するボタン」を押すと保存できます
+          <v-card-title>
+            ダウンロードした変換設定ファイルを読み込む
+          </v-card-title>
+          <v-card-text class="red--text">
+            ※ 変換設定は「保存するボタン」を押すとダウンロードできます
           </v-card-text>
         </v-row>
         <v-row>
           <v-card-text>
-            <v-file-input v-model="settingFile" accept=".json" />
+            <v-file-input
+              v-model="settingFile"
+              accept=".json"
+              label="読み込む変換設定ファイルを選択してください。"
+            />
             <v-btn class="ma-2" color="primary" @click="readSettingFile">
               読み込む
             </v-btn>
