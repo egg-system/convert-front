@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex'
+import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 import { headers, converters } from './convert-table'
 import nameDialog from './dialogs/name-dialog.vue'
 import convertDialog from './dialogs/convert-dialog.vue'
@@ -74,7 +74,8 @@ export default {
     validate(convertSetting) {
       return this.validateSetting(convertSetting)
     },
-    ...mapMutations('csv/converter', ['addSetting', 'deleteSetting'])
+    ...mapActions('csv/converter', ['deleteSetting']),
+    ...mapMutations('csv/converter', ['addSetting'])
   }
 }
 </script>

@@ -32,7 +32,7 @@ export const mutations = {
     convertSettings[updateSetting.index] = updateSetting
     state.settings = convertSettings
   },
-  deleteSetting(state, index) {
+  removeSetting(state, index) {
     const convertSettings = state.settings.concat()
     convertSettings.splice(index, 1)
     state.settings = convertSettings.map((setting, index) => {
@@ -76,10 +76,18 @@ export const getters = {
   },
   isValidSettings(state, getters) {
     return state.settings.every((setting) => getters.validateSetting(setting))
+  },
+  replaceKeys(state) {
+    const replaceKeys = state.settings.map((setting) => setting.replaceKey)
+    return Array.from(new Set(replaceKeys))
   }
 }
 
 export const actions = {
+  deleteSetting({ commit, getters }, index) {
+    commit('removeSetting', index)
+    commit('replacer/filterReplaceSettings', getters.replaceKeys)
+  },
   async getSettingsFile({ commit }, settingsKey) {
     commit('setSettingsKey', settingsKey)
 
