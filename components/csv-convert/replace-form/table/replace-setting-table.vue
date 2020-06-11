@@ -82,14 +82,16 @@ export default {
       return item.from && item.to
     },
     addReplace(newIndex) {
-      const replaceValues = this.replaceValues.concat().splice(newIndex, 0, {
+      const replaceValues = this.replaceValues.concat()
+      replaceValues.splice(newIndex, 0, {
         from: null,
         to: null
       })
       this.$emit('input', replaceValues)
     },
     removeReplace(index) {
-      const replaceValues = this.replaceValues.concat().splice(index, 1)
+      const replaceValues = this.replaceValues.concat()
+      replaceValues.splice(index, 1)
       this.$emit('input', replaceValues)
     }
   }
