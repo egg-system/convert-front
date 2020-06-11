@@ -21,6 +21,12 @@
           列名が入力されていないか、変換内容が未設定の行があります。
         </p>
       </v-container>
+      <a
+        v-show="false"
+        ref="download"
+        :href="downloadSettingsUrl"
+        download="settings.json"
+      />
     </v-stepper-content>
   </v-container>
 </template>
@@ -40,7 +46,14 @@ export default {
     editable() {
       return 'csv' in this.$route.query
     },
+    downloadSettingsUrl() {
+      const jsonBlob = new Blob([this.settingFileContent], {
+        type: 'application/json'
+      })
+      return URL.createObjectURL(jsonBlob)
+    },
     ...mapState('csv/converter', ['settings']),
+    ...mapGetters('csv/converter', ['settingFileContent']),
     ...mapGetters('csv/converter/validator', ['isValidSettings'])
   },
   methods: {
@@ -49,9 +62,14 @@ export default {
     },
     async postSettings() {
       this.validate()
-      if (this.isValid) {
-        await this.doPostSettings()
+      if (!this.isValid) {
+        return
       }
+
+      await this.doPostSettings()
+      await this.$nextTick(async () => {
+        await this.$refs.download.click()
+      })
     },
     async doPostSettings() {
       await putSettingsFile()
