@@ -11,6 +11,9 @@
           :edit-convert-setting.sync="convertSetting"
           :edit-replace-settings.sync="editReplaceSettings"
         />
+        <p v-if="errorMessage" class="red--text font-weight-bold">
+          {{ errorMessage }}
+        </p>
         <convert-form-actions
           :is-valid="isValid"
           @validate="validate"
@@ -23,7 +26,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 import convertFormActions from './convert-form-actions'
 import convertValueInputs from './convert-value-inputs.vue'
 
@@ -38,10 +41,20 @@ export default {
   data: () => ({
     isValid: false,
     convertSetting: null,
-    editReplaceSettings: null
+    editReplaceSettings: null,
+    errorMessage: null
   }),
   computed: {
-    ...mapState('csv/converter/replacer', ['replaceSettings'])
+    editReplaceSetting() {
+      const replaceKey = this.convertSetting.replaceKey
+      if (!replaceKey) {
+        return null
+      }
+
+      return this.editReplaceSettings[replaceKey]
+    },
+    ...mapState('csv/converter/replacer', ['replaceSettings']),
+    ...mapGetters('csv/converter/replacer', ['validateReplaceSetting'])
   },
   watch: {
     value: {
@@ -65,6 +78,18 @@ export default {
     },
     validate() {
       this.$refs.convertForm.validate()
+      this.doValidateReplaceSetting()
+    },
+    doValidateReplaceSetting() {
+      this.errorMessage = null
+
+      const replaceSetting = this.editReplaceSetting
+      if (!replaceSetting || this.validateReplaceSetting(replaceSetting)) {
+        return
+      }
+
+      this.errorMessage = '入力されていないコード変換設定があります。'
+      this.isValid = false
     },
     update() {
       this.$emit('input', this.convertSetting)

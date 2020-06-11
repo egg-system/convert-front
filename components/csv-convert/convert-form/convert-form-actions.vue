@@ -23,10 +23,13 @@ export default {
     },
     updateSetting() {
       this.$emit('validate')
+
+      this.$nextTick(() => this.doUpdate())
+    },
+    doUpdate() {
       if (!this.isValid) {
         return
       }
-
       this.$emit('update')
     }
   }
