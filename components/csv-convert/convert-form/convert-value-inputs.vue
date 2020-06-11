@@ -5,8 +5,8 @@
     <template v-else>
       <convert-from-value-input v-model="convertSetting" />
       <convert-replace-input
-        :convert-setting.sync="convertSetting"
-        :replace-setting.sync="replaceSettings"
+        :edit-convert-setting.sync="convertSetting"
+        :edit-replace-settings.sync="replaceSettings"
       />
     </template>
   </v-card-text>
