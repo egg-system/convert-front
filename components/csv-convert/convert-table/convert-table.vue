@@ -11,6 +11,7 @@
       <v-toolbar flat color="white">
         <v-toolbar-title>CSV変換設定</v-toolbar-title>
         <v-spacer />
+        <settings-dialog />
       </v-toolbar>
     </template>
     <template #item.state="{ item }">
@@ -47,9 +48,15 @@ import { headers, converters } from './convert-table'
 import nameDialog from './dialogs/name-dialog.vue'
 import convertDialog from './dialogs/convert-dialog.vue'
 import convertRowStatus from './convert-row-status.vue'
+import settingsDialog from './dialogs/settings-dialog'
 
 export default {
-  components: { nameDialog, convertDialog, convertRowStatus },
+  components: {
+    nameDialog,
+    convertDialog,
+    convertRowStatus,
+    settingsDialog
+  },
   computed: {
     tableHeaders() {
       return headers
@@ -66,7 +73,6 @@ export default {
         this.isEmptySetting(convertSetting) ||
         window.confirm('変換設定を削除します。よろしいでしょうか？')
 
-      console.log(this.isEmptySetting(convertSetting))
       if (shouldDelete) {
         this.deleteSetting(convertSetting.index)
       }
