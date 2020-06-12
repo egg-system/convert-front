@@ -13,7 +13,7 @@
             color="primary"
             @click="postSettings"
           >
-            保存する
+            次へ進む
           </v-btn>
           <preview-dialog :is-valid="isValid" @validate="validate" />
         </v-row>
@@ -46,14 +46,7 @@ export default {
     editable() {
       return 'csv' in this.$route.query
     },
-    downloadSettingsUrl() {
-      const jsonBlob = new Blob([this.settingFileContent], {
-        type: 'application/json'
-      })
-      return URL.createObjectURL(jsonBlob)
-    },
     ...mapState('csv/converter', ['settings']),
-    ...mapGetters('csv/converter', ['settingFileContent']),
     ...mapGetters('csv/converter/validator', ['isValidSettings'])
   },
   methods: {
@@ -67,9 +60,6 @@ export default {
       }
 
       await this.doPostSettings()
-      await this.$nextTick(async () => {
-        await this.$refs.download.click()
-      })
     },
     async doPostSettings() {
       await putSettingsFile()
