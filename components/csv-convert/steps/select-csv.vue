@@ -22,7 +22,7 @@
             :disabled="!selected"
             @click="putCsvFile"
           >
-            アップロードする
+            次へ進む
           </v-btn>
         </v-row>
       </v-container>
