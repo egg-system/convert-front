@@ -24,7 +24,7 @@
             :disabled="loading"
             @click="doConvert"
           >
-            変換する
+            ダウンロードする
           </v-btn>
           <!-- 自動でダウンロードさせるための疑似要素 -->
           <a v-show="false" ref="download" :href="downloadUrl" download />

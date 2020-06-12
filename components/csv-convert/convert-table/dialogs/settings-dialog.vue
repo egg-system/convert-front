@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="isShown" persistent>
     <template v-slot:activator="{ on }">
-      <v-btn outlined color="primary" v-on="on">
+      <v-btn class="mx-2" color="primary" outlined v-on="on">
         変換設定を読み込む
       </v-btn>
     </template>
@@ -9,10 +9,10 @@
       <v-container>
         <v-row>
           <v-card-title>
-            ダウンロードした変換設定ファイルを読み込む
+            保存した変換設定ファイルを読み込む
           </v-card-title>
           <v-card-text class="red--text">
-            ※ 変換設定は「保存するボタン」を押すとダウンロードできます
+            ※ 変換設定は「変換設定を保存するボタン」を押すとダウンロードできます
           </v-card-text>
         </v-row>
         <v-row>
@@ -20,7 +20,7 @@
             <v-file-input
               v-model="settingFile"
               accept=".json"
-              label="読み込む変換設定ファイルを選択してください。"
+              label="読み込む変換設定ファイル（.json）を選択してください。"
             />
             <v-btn class="ma-2" color="primary" @click="readSettingFile">
               読み込む

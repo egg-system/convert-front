@@ -11,6 +11,7 @@
       <v-toolbar flat color="white">
         <v-toolbar-title>CSV変換設定</v-toolbar-title>
         <v-spacer />
+        <download-settings />
         <settings-dialog />
       </v-toolbar>
     </template>
@@ -47,14 +48,16 @@ import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import { headers, converters } from './convert-table'
 import nameDialog from './dialogs/name-dialog.vue'
 import convertDialog from './dialogs/convert-dialog.vue'
-import convertRowStatus from './convert-row-status.vue'
 import settingsDialog from './dialogs/settings-dialog'
+import convertRowStatus from './convert-row-status.vue'
+import downloadSettings from './download-settings'
 
 export default {
   components: {
     nameDialog,
     convertDialog,
     convertRowStatus,
+    downloadSettings,
     settingsDialog
   },
   computed: {
