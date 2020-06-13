@@ -1,9 +1,11 @@
 <template>
   <div>
     <section v-for="(help, i) in qa" :id="'question' + help.id" :key="i">
-      <v-card>
+      <v-card class="qa">
         <a :href="'#question' + help.id" icon @click="help.qid = !help.qid">
-          <v-card-title> {{ help.question }}<br /> </v-card-title>
+          <v-card-title class="subtitle-2">
+            {{ help.question }}<br />
+          </v-card-title>
         </a>
         <v-expand-transition>
           <div v-show="!help.qid">
@@ -38,6 +40,9 @@ export default {
 a {
   text-decoration: none;
   color: black;
+}
+.qa {
+  margin: 10px;
 }
 section:before {
   padding-top: 64px;

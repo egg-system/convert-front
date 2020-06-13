@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-for="(help, i) in operation" :key="i">
-      <v-card>
-        <v-card-title> {{ help.procedure }}<br /> </v-card-title>
-      </v-card>
-    </div>
+    <v-card class="operation-card">
+      <div v-for="(help, i) in operation" :key="i" class="operation">
+        <v-card-text>{{ help.procedure }}</v-card-text>
+      </div>
+    </v-card>
   </div>
 </template>
 
@@ -23,10 +23,20 @@ export default {
 .card {
   padding-top: 64px;
   margin-top: -64px;
-  margin: 0;
 }
 a {
   text-decoration: none;
   color: black;
+}
+.operation::after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 1px;
+  color: black;
+  background: #dbdbdb;
+}
+.operation-card {
+  margin: 10px;
 }
 </style>

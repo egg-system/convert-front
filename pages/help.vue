@@ -1,29 +1,48 @@
 <template>
   <div>
     <h1>ヘルプページ</h1>
-    <div class="title">
-      <h2>操作方法</h2>
-      <a href="#qa">QAはこちら</a>
+    <div>
+      <helpTab
+        v-for="item in list"
+        :key="item.id"
+        v-model="currentId"
+        v-bind="item"
+      />
     </div>
-    <operation :operation="operation" class="" />
-    <h2 id="qa" class="title">Q&A</h2>
-    <qa :qa="qa" class="" />
+    <section v-show="current.id === 1">
+      <operation :operation="operation" />
+    </section>
+    <section v-show="current.id === 2">
+      <qa :qa="qa" />
+    </section>
   </div>
 </template>
 <script>
 import help from '../components/help/help'
 import qa from '../components/help/qa'
 import operation from '../components/help/operation'
+import helpTab from '../components/help/help-tab'
 
 export default {
   components: {
     qa,
-    operation
+    operation,
+    helpTab
   },
   data() {
     return {
       qa: help.qa,
-      operation: help.operation
+      operation: help.operation,
+      currentId: 1,
+      list: [
+        { id: 1, label: '操作方法' },
+        { id: 2, label: 'Q&A' }
+      ]
+    }
+  },
+  computed: {
+    current() {
+      return this.list.find((el) => el.id === this.currentId) || {}
     }
   }
 }
@@ -32,12 +51,6 @@ export default {
 <style scoped>
 h1 {
   margin: 50px;
-}
-.title h2 {
-  display: inline;
-}
-.title {
-  margin: 28px;
 }
 h2:before {
   padding-top: 64px;

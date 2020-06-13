@@ -87,7 +87,7 @@ const operation = [
     procedure: '(2) 「アップロードする」ボタンを押します'
   },
   {
-    procedure: ''
+    procedure: '(3) '
   },
   {
     procedure:
