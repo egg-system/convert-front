@@ -49,6 +49,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    'nuxt-fontawesome',
     [
       '@nuxtjs/google-tag-manager',
       {
@@ -84,6 +85,14 @@ export default {
   },
   dotenv: {
     only: ['API_URL', 'API_KEY']
+  },
+  fontawesome: {
+    imports: [
+      {
+        set: '@fortawesome/free-brands-svg-icons',
+        icons: ['fab']
+      }
+    ]
   },
   /*
    ** Build configuration
