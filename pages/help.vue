@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>ヘルプページ</h1>
+  <div class="container">
+    <div class="my-3 font-weight-bold subtitle-1">ヘルプページ</div>
     <div>
       <helpTab
         v-for="item in list"
@@ -50,7 +50,7 @@ export default {
 
 <style scoped>
 h1 {
-  margin: 50px;
+  margin: 12px;
 }
 h2:before {
   padding-top: 64px;

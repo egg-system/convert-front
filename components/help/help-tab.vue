@@ -32,6 +32,6 @@ export default {
 
 <style scoped>
 .tab {
-  margin: 10px;
+  margin: 12px;
 }
 </style>

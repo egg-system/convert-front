@@ -37,6 +37,6 @@ a {
   background: #dbdbdb;
 }
 .operation-card {
-  margin: 10px;
+  margin: 12px;
 }
 </style>

@@ -32,17 +32,12 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  padding-top: 64px;
-  margin-top: -64px;
-  margin: 0;
-}
 a {
   text-decoration: none;
   color: black;
 }
 .qa {
-  margin: 10px;
+  margin: 12px;
 }
 section:before {
   padding-top: 64px;
