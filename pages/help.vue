@@ -44,6 +44,49 @@ export default {
     current() {
       return this.list.find((el) => el.id === this.currentId) || {}
     }
+  },
+  head() {
+    return {
+      title: 'ヘルプページ',
+      meta: [
+        {
+          hid: 'help-description',
+          name: 'description',
+          content: 'ヘルプページです'
+        },
+        {
+          hid: 'help-keywords',
+          name: 'keywords',
+          content: '操作方法, Q&A'
+        },
+        {
+          hid: 'help-twitter:card',
+          property: 'twitter:card',
+          content: 'summary'
+        },
+        { hid: 'help-og:type', property: 'og:type', content: 'article' },
+        {
+          hid: 'help-og:title',
+          property: 'og:title',
+          content: 'ヘルプページ'
+        },
+        {
+          hid: 'help-og:description',
+          property: 'og:description',
+          content: 'ヘルプページです'
+        },
+        {
+          hid: 'help-og:url',
+          property: 'og:url',
+          content: 'https://convert-service.x-face.net/'
+        },
+        {
+          hid: 'help-og:image',
+          property: 'og:image',
+          content: ''
+        }
+      ]
+    }
   }
 }
 </script>
