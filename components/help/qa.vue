@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="qa">
+    <div class="subtile-1">Q&A</div>
     <section v-for="(help, i) in qa" :id="'question' + help.id" :key="i">
       <v-card class="qa">
         <a :href="'#question' + help.id" icon @click="help.qid = !help.qid">
@@ -45,5 +46,8 @@ section:before {
   visibility: hidden;
   content: '';
   display: block;
+}
+.subtitle-1 {
+  margin-left: 12px;
 }
 </style>

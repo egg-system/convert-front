@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <v-card class="operation-card">
-      <div v-for="(help, i) in operation" :key="i" class="operation">
+  <div class="operation">
+    <div class="subtile-2">操作方法</div>
+    <v-card class="operation">
+      <div v-for="(help, i) in operation" :key="i">
         <v-card-text>{{ help.procedure }}</v-card-text>
       </div>
     </v-card>
@@ -20,23 +21,7 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  padding-top: 64px;
-  margin-top: -64px;
-}
-a {
-  text-decoration: none;
-  color: black;
-}
-.operation::after {
-  position: absolute;
-  content: '';
-  width: 100%;
-  height: 1px;
-  color: black;
-  background: #dbdbdb;
-}
-.operation-card {
+.operation {
   margin: 12px;
 }
 </style>
