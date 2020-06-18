@@ -12,7 +12,7 @@
         >
           <v-file-input
             v-model="csv"
-            label="変換したいCSVファイルを選択する、またはドラッグ&ドロップしてください"
+            label="クリックまたドラッグ&ドロップで、変換したいCSVファイルを選択してください"
             accept=".csv"
             single-line
             show-size
@@ -58,6 +58,9 @@ export default {
     checkDrag(event, key, status) {},
     onDrop(event) {
       const dropFile = event.dataTransfer.files[0]
+      if (dropFile.type !== 'text/csv') {
+        return
+      }
       this.csv = dropFile
     },
     ...mapActions('csv', ['pushStep']),
