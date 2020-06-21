@@ -1,31 +1,38 @@
 import { generateHash } from '~/plugins/generate-hash'
 
+const defaultConvertSettings = {
+  name: null,
+  fixedValue: null,
+  fromIndex: null,
+  replaceKey: null
+}
+
 export const state = () => ({
-  settings: [],
-  settingsKey: null,
-  replaces: {}
+  settings: [
+    {
+      ...defaultConvertSettings,
+      index: 0
+    }
+  ],
+  settingsKey: null
 })
 
 export const mutations = {
-  addReplace(state, replaceSetting) {
-    const replaces = { ...state.replaces }
-    replaces[replaceSetting.name] = replaceSetting.value
-    state.replaces = replaces
-  },
-  addSetting(state, newSetting) {
+  addSetting(state, newIndex) {
     const convertSettings = state.settings.concat()
-    convertSettings.push({
-      ...newSetting,
-      index: convertSettings.length
+    convertSettings.splice(newIndex, 0, {
+      ...defaultConvertSettings
     })
-    state.settings = convertSettings
+    state.settings = convertSettings.map((setting, index) => {
+      return { ...setting, index }
+    })
   },
   updateSetting(state, updateSetting) {
     const convertSettings = state.settings.concat()
     convertSettings[updateSetting.index] = updateSetting
     state.settings = convertSettings
   },
-  deleteSetting(state, index) {
+  removeSetting(state, index) {
     const convertSettings = state.settings.concat()
     convertSettings.splice(index, 1)
     state.settings = convertSettings.map((setting, index) => {
@@ -33,56 +40,37 @@ export const mutations = {
       return setting
     })
   },
-  deleteReplace(state, replaceKey) {
-    const replaces = { ...state.replaces }
-    delete replaces[replaceKey]
-    state.replaces = replaces
-  },
   setSettingsKey(state, key) {
     state.settingsKey = key
   },
   setSettings(state, { convertSettings, replaceSettings }) {
     state.settings = convertSettings
-    state.replaces = replaceSettings
+    state.replacer.replaceSettings = replaceSettings
   }
 }
 
 export const getters = {
-  getCsvColumnName(state, getters, rootState, rootGetters) {
-    return (fromIndex) => {
-      const csvHeaders = rootGetters['csv/file/csvHeaders']
-      if (fromIndex !== null && csvHeaders[fromIndex]) {
-        return csvHeaders[fromIndex].text
-      }
-
-      return null
-    }
-  },
-  getDescription(state, getters) {
-    return (convertSetting) => {
-      if (convertSetting.fixedValue) {
-        return `固定値「${convertSetting.fixedValue}」で補完する`
-      }
-
-      if (getters.getCsvColumnName(convertSetting.fromIndex)) {
-        const columnName = getters.getCsvColumnName(convertSetting.fromIndex)
-        const displayFromIndex = convertSetting.fromIndex + 1
-        return `変換したいCSVファイルの${displayFromIndex}列目「${columnName}」からデータを取得する`
-      }
-
-      return null
-    }
+  defaultConvertSettings() {
+    return defaultConvertSettings
   },
   settingFileContent(state, getters, rootState, rootGetters) {
     return JSON.stringify({
-      replaceSettings: state.replaces,
+      replaceSettings: state.replacer.replaceSettings,
       convertSettings: state.settings,
       csvHeaders: rootGetters['csv/file/csvHeaders']
     })
+  },
+  replaceKeys(state) {
+    const replaceKeys = state.settings.map((setting) => setting.replaceKey)
+    return Array.from(new Set(replaceKeys))
   }
 }
 
 export const actions = {
+  deleteSetting({ commit, getters }, index) {
+    commit('removeSetting', index)
+    commit('replacer/filterReplaceSettings', getters.replaceKeys)
+  },
   async getSettingsFile({ commit }, settingsKey) {
     commit('setSettingsKey', settingsKey)
 

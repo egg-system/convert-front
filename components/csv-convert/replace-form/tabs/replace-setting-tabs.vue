@@ -1,8 +1,5 @@
 <template>
-  <v-container>
-    <v-row v-if="errorMessage">
-      <v-alert type="error">{{ errorMessage }}</v-alert>
-    </v-row>
+  <div class="replace-setting-tab">
     <v-tabs v-model="inputTab">
       <v-tab v-for="(inputTabItem, index) in inputTabItems" :key="index">
         {{ inputTabItem.name }}
@@ -13,7 +10,7 @@
         <component :is="inputTabItem.component" v-model="replaceValues" />
       </v-tab-item>
     </v-tabs-items>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -25,11 +22,7 @@ export default {
   components: { replaceSettingTable, replaceSettingBulkInput },
   props: {
     value: {
-      type: Object,
-      required: true
-    },
-    errorMessage: {
-      type: null,
+      type: Array,
       required: true
     }
   },
@@ -42,15 +35,18 @@ export default {
     },
     replaceValues: {
       get() {
-        return this.value.value
+        return this.value
       },
       set(replaceValues) {
-        this.$emit('input', {
-          ...this.value,
-          value: replaceValues
-        })
+        this.$emit('input', replaceValues)
       }
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.replace-setting-tab {
+  width: 100%;
+}
+</style>

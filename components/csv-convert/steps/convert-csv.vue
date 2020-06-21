@@ -6,23 +6,33 @@
     <v-stepper-content :step="step">
       <v-container>
         <convert-table />
-        <v-btn
-          id="btn-save-convert-config"
-          class="ma-5"
-          color="primary"
-          :disabled="disabled"
-          @click="postSettings"
-        >
-          保存する
-        </v-btn>
-        <preview-dialog />
+        <v-row>
+          <v-btn
+            id="btn-save-convert-config"
+            class="ma-5"
+            color="primary"
+            @click="postSettings"
+          >
+            次へ進む
+          </v-btn>
+          <preview-dialog :is-valid="isValid" @validate="validate" />
+        </v-row>
+        <p v-if="!isValid" class="red--text font-weight-bold">
+          列名が入力されていないか、変換内容が未設定の行があります。
+        </p>
       </v-container>
+      <a
+        v-show="false"
+        ref="download"
+        :href="downloadSettingsUrl"
+        download="settings.json"
+      />
     </v-stepper-content>
   </v-container>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 import { putSettingsFile } from '../convert-actions'
 import convertTable from '../convert-table/convert-table.vue'
 import previewDialog from '../preview-table/preview-dialog.vue'
@@ -31,17 +41,27 @@ import stepsMixins from './steps-mixins'
 export default {
   components: { convertTable, previewDialog },
   mixins: [stepsMixins],
+  data: () => ({ isValid: true }),
   computed: {
     editable() {
       return 'csv' in this.$route.query
     },
-    disabled() {
-      return this.settings.length === 0
-    },
-    ...mapState('csv/converter', ['settings'])
+    ...mapState('csv/converter', ['settings']),
+    ...mapGetters('csv/converter/validator', ['isValidSettings'])
   },
   methods: {
+    validate() {
+      this.isValid = this.isValidSettings
+    },
     async postSettings() {
+      this.validate()
+      if (!this.isValid) {
+        return
+      }
+
+      await this.doPostSettings()
+    },
+    async doPostSettings() {
       await putSettingsFile()
       this.pushStep(this.nextStep)
     },

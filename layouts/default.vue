@@ -12,10 +12,14 @@
           <service-term-dialog />
           <span>&ensp;/</span>
           <v-btn href="https://eggsystem.co.jp/" target="blank" depressed>
-            <span class="team-link">
-              &ensp;@{{ new Date().getFullYear() }}
-              x-faCE (EGG SYSTEM Inc.) Managemented
-            </span>
+            <client-only>
+              <span class="team-link">
+                &ensp;@{{ new Date().getFullYear() }}
+                x-faCE (EGG SYSTEM Inc.)
+                <br v-if="$vuetify.breakpoint.xs" />
+                Managemented
+              </span>
+            </client-only>
           </v-btn>
         </v-col>
       </v-row>

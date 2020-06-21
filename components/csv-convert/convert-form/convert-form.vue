@@ -4,27 +4,20 @@
       <v-container>
         <v-row>
           <v-card-title>
-            {{ doUpdate ? 'CSV設定の更新' : 'CSV設定の登録' }}
+            変換し終わったCSVの変換内容を設定する
           </v-card-title>
         </v-row>
-        <v-card-text>
-          <v-row>
-            <v-text-field
-              v-model="name"
-              label="変換し終わったCSVファイルの列名を入力する"
-              :rules="[
-                (value) => !!value || '変換後の列名を入力してください。'
-              ]"
-              required
-            />
-          </v-row>
-          <convert-inputs v-model="convertSetting" />
-        </v-card-text>
+        <convert-value-inputs
+          :edit-convert-setting.sync="convertSetting"
+          :edit-replace-settings.sync="editReplaceSettings"
+        />
+        <p v-if="errorMessage" class="red--text font-weight-bold">
+          {{ errorMessage }}
+        </p>
         <convert-form-actions
-          v-model="convertSetting"
-          :do-update="doUpdate"
           :is-valid="isValid"
           @validate="validate"
+          @update="update"
           @cancel="cancel"
         />
       </v-container>
@@ -33,42 +26,76 @@
 </template>
 
 <script>
+import { mapState, mapMutations, mapGetters } from 'vuex'
 import convertFormActions from './convert-form-actions'
-import convertFormMixins from './mixins/convert-form-mixins'
-import convertInputs from './convert-inputs.vue'
+import convertValueInputs from './convert-value-inputs.vue'
 
 export default {
-  components: { convertInputs, convertFormActions },
-  mixins: [convertFormMixins],
+  components: { convertFormActions, convertValueInputs },
   props: {
-    doUpdate: {
-      type: Boolean,
+    value: {
+      type: Object,
       required: true
     }
   },
   data: () => ({
-    isValid: false
+    isValid: false,
+    convertSetting: null,
+    editReplaceSettings: null,
+    errorMessage: null
   }),
   computed: {
-    name: {
-      get() {
-        return this.convertSetting.name
-      },
-      set(name) {
-        this.convertSetting = {
-          ...this.convertSetting,
-          name
-        }
+    editReplaceSetting() {
+      const replaceKey = this.convertSetting.replaceKey
+      if (!replaceKey) {
+        return null
       }
+
+      return this.editReplaceSettings[replaceKey]
+    },
+    ...mapState('csv/converter/replacer', ['replaceSettings']),
+    ...mapGetters('csv/converter/replacer', ['validateReplaceSetting'])
+  },
+  watch: {
+    value: {
+      handler() {
+        this.initialize()
+      },
+      deep: true
     }
   },
+  created() {
+    this.initialize()
+  },
   methods: {
+    initialize() {
+      this.convertSetting = { ...this.value }
+      this.editReplaceSettings = { ...this.replaceSettings }
+    },
     cancel() {
+      this.initialize()
       this.$emit('cancel')
     },
     validate() {
       this.$refs.convertForm.validate()
-    }
+      this.doValidateReplaceSetting()
+    },
+    doValidateReplaceSetting() {
+      this.errorMessage = null
+
+      const replaceSetting = this.editReplaceSetting
+      if (!replaceSetting || this.validateReplaceSetting(replaceSetting)) {
+        return
+      }
+
+      this.errorMessage = '入力されていないコード変換設定があります。'
+      this.isValid = false
+    },
+    update() {
+      this.$emit('input', this.convertSetting)
+      this.updateReplaces(this.editReplaceSettings)
+    },
+    ...mapMutations('csv/converter/replacer', ['updateReplaces'])
   }
 }
 </script>

@@ -1,17 +1,11 @@
 <template>
-  <v-edit-dialog
-    :return-value.sync="itamValue"
-    save-text="保存する"
-    cancel-text="キャンセル"
-    persistent
-    large
-  >
+  <v-edit-dialog save-text="保存する" cancel-text="キャンセル" persistent large>
     <v-icon disabled>mdi-pencil-outline</v-icon>
-    <span :class="itamValue ? '' : 'text--secondary'">
-      {{ itamValue ? itamValue : '(クリックすると、データを入力できます)' }}
+    <span :class="itemValue ? '' : 'text--secondary'">
+      {{ itemValue ? itemValue : '(クリックすると、データを入力できます)' }}
     </span>
     <template v-slot:input>
-      <v-text-field v-model="itamValue" single-line />
+      <v-text-field v-model="itemValue" single-line />
     </template>
   </v-edit-dialog>
 </template>
@@ -33,13 +27,16 @@ export default {
     }
   },
   computed: {
-    itamValue: {
+    itemValue: {
       get() {
         return this.value[this.index][this.property]
       },
-      set(itamValue) {
+      set(itemValue) {
+        const repaceSetting = { ...this.value[this.index] }
+        repaceSetting[this.property] = itemValue
+
         const value = this.value.concat()
-        value[this.index][this.property] = itamValue
+        value[this.index] = repaceSetting
         this.$emit('input', value)
       }
     }

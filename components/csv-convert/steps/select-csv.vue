@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-stepper-step :step="step" editable>
-      変換したいCSVファイルの選択
+      変換したいCSVファイルを選択する
     </v-stepper-step>
     <v-stepper-content :step="step">
       <v-container>
@@ -22,7 +22,7 @@
             :disabled="!selected"
             @click="putCsvFile"
           >
-            アップロードする
+            次へ進む
           </v-btn>
         </v-row>
       </v-container>

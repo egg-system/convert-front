@@ -1,49 +1,60 @@
 <template>
-  <div>
-    <v-row>
-      <v-radio-group v-model="doReplace" label="コード変換の設定" width="100%">
-        <v-radio :value="false" label="コード変換を設定しない" />
-        <v-radio :value="true" label="コード変換を設定する" />
-      </v-radio-group>
-    </v-row>
-    <replace-setting-input v-if="doReplace" v-model="convertSetting" />
-  </div>
+  <v-row>
+    <v-radio-group v-model="doReplace" label="コード変換の設定" width="100%">
+      <v-radio :value="false" label="コード変換を設定しない" />
+      <v-radio :value="true" label="コード変換を設定する" />
+    </v-radio-group>
+    <replace-setting-form v-if="doReplace" v-model="replaceSetting" />
+  </v-row>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import convertFormMixins from '../mixins/convert-form-mixins'
-import replaceSettingInput from './replace/replace-setting-input.vue'
+import replaceSettingForm from '../../replace-form/replace-setting-form.vue'
+import convertReplaceInputMixin from './mixins/convert-replace-input-mixin'
 
 export default {
-  components: { replaceSettingInput },
-  mixins: [convertFormMixins],
-  data: () => ({
-    doReplace: false
-  }),
+  components: { replaceSettingForm },
+  mixins: [convertReplaceInputMixin],
   computed: {
-    ...mapState('csv/converter', ['replaces'])
-  },
-  watch: {
-    doReplace() {
-      if (!this.doReplace) {
+    doReplace: {
+      get() {
+        return this.replaceKey in this.replaceSettings
+      },
+      set(doReplace) {
+        doReplace ? this.initilizeReplace() : this.doRemove()
         this.convertSetting = {
           ...this.convertSetting,
-          replaceKey: null
+          replaceKey: doReplace ? this.replaceKey : null
         }
       }
+    },
+    replaceSetting: {
+      get() {
+        if (this.doReplace) {
+          return this.replaceSettings[this.replaceKey]
+        }
+        return null
+      },
+      set(replaceSetting) {
+        const replaceSettings = { ...this.replaceSettings }
+        replaceSettings[this.replaceKey] = replaceSetting
+        this.replaceSettings = replaceSettings
+      }
+    },
+    replaceKey() {
+      const replaceKeyIndex = this.convertSetting.index + 1
+      return `列${replaceKeyIndex}の変換設定`
     }
   },
-  created() {
-    const replaceKey = this.convertSetting.replaceKey
-    if (!Object.keys(this.replaces).includes(replaceKey)) {
-      this.convertSetting = {
-        ...this.convertSetting,
-        replaceKey: null
-      }
+  methods: {
+    initilizeReplace() {
+      this.replaceSetting = [{ from: null, to: null }]
+    },
+    doRemove() {
+      const replaceSettings = { ...this.replaceSettings }
+      delete replaceSettings[this.replaceKey]
+      this.replaceSettings = replaceSettings
     }
-
-    this.doReplace = !!this.convertSetting.replaceKey
   }
 }
 </script>
