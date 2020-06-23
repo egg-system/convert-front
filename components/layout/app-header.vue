@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar fixed app dark flat>
+  <v-app-bar fixed app dark flat class="far">
     <v-col cols="10">
       <v-btn href="/" depressed>
         <v-img
@@ -20,11 +20,13 @@
             <v-toolbar-items>
               <v-menu dark offset-y>
                 <template v-slot:activator="{ on }">
-                  <v-app-bar v-on="on">
-                    <v-icon dark color="white">
-                      mdi-dots-vertical
-                    </v-icon>
-                  </v-app-bar>
+                  <div>
+                    <v-btn small fab v-on="on">
+                      <v-icon dark>
+                        mdi-dots-vertical
+                      </v-icon>
+                    </v-btn>
+                  </div>
                 </template>
                 <v-list>
                   <v-list-item v-for="nav in navList" :key="nav.icon">
