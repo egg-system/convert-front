@@ -50,16 +50,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-h1 {
-  margin: 12px;
-}
-h2:before {
-  padding-top: 64px;
-  margin-top: -64px;
-  visibility: hidden;
-  content: '';
-  display: block;
-}
-</style>
