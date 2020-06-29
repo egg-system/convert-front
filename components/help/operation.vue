@@ -3,7 +3,9 @@
     <div class="subtile-2">操作方法</div>
     <v-card class="operation">
       <div v-for="(help, i) in operation" :key="i">
-        <v-card-text>{{ help.procedure }}</v-card-text>
+        <!-- help.produreは固定値なので、問題なし -->
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <v-card-text v-html="help.procedure"></v-card-text>
       </div>
     </v-card>
   </div>
