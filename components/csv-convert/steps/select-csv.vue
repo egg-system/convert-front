@@ -5,10 +5,14 @@
     </v-stepper-step>
     <v-stepper-content :step="step">
       <v-container>
-        <v-row>
+        <v-row
+          @dragleave.prevent="checkDrag($event, 'new', false)"
+          @dragover.prevent="checkDrag($event, 'new', true)"
+          @drop.prevent="onDrop"
+        >
           <v-file-input
             v-model="csv"
-            label="変換したいCSVファイルを選択する"
+            label="クリックまたドラッグ&ドロップで、変換したいCSVファイルを選択してください"
             accept=".csv"
             single-line
             show-size
@@ -50,6 +54,14 @@ export default {
     async putCsvFile() {
       await putFile(this.csv)
       this.pushStep(this.nextStep)
+    },
+    checkDrag(event, key, status) {},
+    onDrop(event) {
+      const dropFile = event.dataTransfer.files[0]
+      if (dropFile.type !== 'text/csv') {
+        return
+      }
+      this.csv = dropFile
     },
     ...mapActions('csv', ['pushStep']),
     ...mapActions('csv/file', ['putFile'])
