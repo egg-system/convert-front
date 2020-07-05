@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar fixed app dark flat>
+  <v-app-bar fixed app dark flat class="far">
     <v-col cols="10">
       <v-btn href="/" depressed>
         <v-img
@@ -14,25 +14,30 @@
       </v-btn>
     </v-col>
     <client-only>
-      <!-- <template v-if="$vuetify.breakpoint.xs">
+      <template v-if="$vuetify.breakpoint.xs">
         <v-col cols="2">
           <v-row justify="end">
-            <v-icon dark color="white" @click="isShown = true">
-              mdi-dots-vertical
-            </v-icon>
-            <v-navigation-drawer v-model="isShown" app>
-              <v-list-item v-for="nav in navList" :key="nav.icon" link>
-                <v-list-item-icon>
-                  <v-icon color="white">{{ nav.icon }}</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <a href="">{{ nav.text }}</a>
-                </v-list-item-content>
-              </v-list-item>
-            </v-navigation-drawer>
+            <v-toolbar-items>
+              <v-menu dark offset-y>
+                <template v-slot:activator="{ on }">
+                  <div>
+                    <v-btn small fab v-on="on">
+                      <v-icon dark>
+                        mdi-dots-vertical
+                      </v-icon>
+                    </v-btn>
+                  </div>
+                </template>
+                <v-list>
+                  <v-list-item v-for="nav in navList" :key="nav.icon">
+                    <component :is="nav.component" :key="nav.icon" />
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </v-toolbar-items>
           </v-row>
         </v-col>
-      </template> -->
+      </template>
       <!-- ドロップダウンのメニューを、別途実装する -->
       <v-col v-if="!$vuetify.breakpoint.xs" class="text-right">
         <v-row align="center" justify="end">
@@ -48,13 +53,15 @@
 <script>
 import formLink from './header/form-link'
 import releaseNote from './header/release-note/release-note'
+import helpLink from './header/help-link'
 
 export default {
-  components: { formLink, releaseNote },
-  data: () => ({
-    imageSrc: require('@/assets/images/xface-logo-white.png'),
-    isShown: false
-  }),
+  components: { formLink, releaseNote, helpLink },
+  data() {
+    return {
+      imageSrc: require('@/assets/images/xface-logo-white.png')
+    }
+  },
   computed: {
     title() {
       return 'Data Convert'
@@ -70,6 +77,11 @@ export default {
           icon: 'mdi-email-edit-outline',
           text: 'お問い合わせ',
           component: 'form-link'
+        },
+        {
+          icon: ' mdi-help',
+          text: 'ヘルプ',
+          component: 'help-link'
         }
       ]
     }
