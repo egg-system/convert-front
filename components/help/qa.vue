@@ -7,7 +7,7 @@
           <v-card-title class="subtitle-2">
             {{ help.question }}<br />
             <v-spacer></v-spacer>
-            <v-btn fab x-small color="primary">
+            <v-btn fab x-small depressed color="primary">
               <v-icon v-show="help.qid">mdi-plus</v-icon>
               <v-icon v-show="!help.qid">mdi-minus</v-icon>
             </v-btn>
@@ -57,5 +57,12 @@ section:before {
 }
 .subtitle-1 {
   margin-left: 12px;
+}
+.qa /deep/ .qa-answer {
+  padding-left: 1em;
+  text-indent: -1em;
+}
+.qa /deep/ .qa-answer li {
+  text-indent: 0em;
 }
 </style>
